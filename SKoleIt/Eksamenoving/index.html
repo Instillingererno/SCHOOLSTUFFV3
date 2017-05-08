@@ -1,0 +1,229 @@
+<html>
+
+<head>
+    <script>
+        var naavaerende = 0;
+        var rett = 0;
+        var galt = 0;
+        var sporsmol = [];
+        var tmpTab = [];
+
+        function start() {
+            sporsmol = hentFil("spors");
+            hentspors();
+        }
+
+        function Lagre(Name, TabName) {
+            if (typeof(Storage) !== "undefined") {
+                localStorage.setItem(Name, JSON.stringify(TabName));
+            } else {
+                alert("Could not save tab to file");
+            }
+        }
+
+        function hentFil(Name) {
+            try {
+                var tmpTab = [];
+                if (JSON.parse(localStorage.getItem(Name)) != null)
+                    tmpTab = JSON.parse(localStorage.getItem(Name));
+                return tmpTab;
+            } catch (e) {
+                return tmpTab;
+            }
+        }
+
+        function hentspors() {
+            if (sporsmol) {
+                document.getElementById("tekst").innerHTML = sporsmol[naavaerende].sporsmol;
+                document.getElementById("spors1").innerHTML = sporsmol[naavaerende].alt1;
+                document.getElementById("spors2").innerHTML = sporsmol[naavaerende].alt2;
+                document.getElementById("spors3").innerHTML = sporsmol[naavaerende].alt3;
+                document.getElementById("spors4").innerHTML = sporsmol[naavaerende].alt4;
+                if (sporsmol[naavaerende].valgtsvar > 0) {
+                    document.getElementById("inp" + sporsmol[naavaerende].valgtsvar).checked = true;
+                }
+            }
+        }
+
+        function neste() {
+            if (sporsmol[naavaerende].valgtsvar)
+                document.getElementById("inp" + sporsmol[naavaerende].valgtsvar).checked = false;
+            if (naavaerende < (sporsmol.length - 1)) {
+                naavaerende += 1;
+            }
+            document.getElementById("spanMelding").innerHTML = naavaerende + 1;
+            hentspors();
+        }
+
+        function forrige() {
+            if (naavaerende != 0) {
+                naavaerende += -1;
+            }
+            document.getElementById("spanMelding").innerHTML = naavaerende + 1;
+            hentspors();
+        }
+
+        function endre(verdi) {
+            sporsmol[naavaerende].valgtsvar = verdi;
+            Lagre("spors", sporsmol);
+        }
+
+        var spors = function(spors, alt1, alt2, alt3, alt4, svar) {
+            this.sporsmol = spors;
+            this.alt1 = alt1;
+            this.alt2 = alt2;
+            this.alt3 = alt3;
+            this.alt4 = alt4;
+            this.svar = svar;
+            this.valgtsvar = 0;
+        }
+
+        function nyttSpor() {
+            document.getElementById("sporRamme").style.zIndex = 2;
+            document.getElementById("sporRamme").style.opacity = 1;
+            document.getElementById("nyttSpor").style.zIndex = 3;
+            document.getElementById("nyttSpor").style.height = (window.innerHeight * 0.8);
+        }
+
+        function LeggTil() {
+            sporsmol.push(new spors(document.getElementById("inpSpor").value,
+                document.getElementById("inpAlt1").value,
+                document.getElementById("inpAlt2").value,
+                document.getElementById("inpAlt3").value,
+                document.getElementById("inpAlt4").value,
+                document.getElementById("inpSvar").value));
+            document.getElementById("sporRamme").style.opacity = 0;
+            document.getElementById("nyttSpor").style.height = 0;
+            setTimeout(function() {
+                document.getElementById("sporRamme").style.zIndex = -2;
+                document.getElementById("nyttSpor").style.zIndex = -1;
+            }, 3000)
+            hentspors();
+            Lagre("spors", sporsmol);
+        }
+
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        #ramme {
+            margin-left: 50px;
+            margin-top: 50px;
+        }
+        
+        #sporRamme {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            z-index: -2;
+            background-color: rgba(0, 0, 0, 0.8);
+            transition: 3s;
+        }
+        
+        #nyttSpor {
+            position: absolute;
+            width: 80%;
+            margin: 0 auto;
+            height: 0;
+            background: white;
+            z-index: -1;
+            transition: 3s;
+        }
+
+    </style>
+</head>
+
+<body onload="start()">
+
+    <div id="sporRamme">
+        <div id="nyttSpor">
+            Spørsmål : <input id="inpSpor" type="text" />
+            <br /> Alternativ1 : <input id="inpAlt1" type="text" />
+            <br /> Alternativ2 : <input id="inpAlt2" type="text" />
+            <br /> Alternativ3 : <input id="inpAlt3" type="text" />
+            <br /> Alternativ4 : <input id="inpAlt4" type="text" />
+            <br /> Svar : <input id="inpSvar" type="number" min="1" max="4" />
+            <br />
+            <br />
+            <input id="inpNytt" type="button" value="Legg til" onclick="LeggTil()" />
+        </div>
+    </div>
+
+    <div id="ramme">
+        <span onclick="nyttSpor()">+</span>
+        <h1>Eksempler på teorispørsmål</h1>
+        <div id="innhold">
+            <div id="bilde"></div>
+            <span id="tekst"></span>
+            <table>
+                <tr>
+                    <!-- Spørsmål 1 -->
+                    <td>
+                        <!-- Nr -->
+                        <span>1.</span>
+                    </td>
+                    <td>
+                        <!-- Valg og spørsmål -->
+                        <input id="inp1" class="radio" type="radio" name="valg" value="1" onchange="endre(this.value)" />
+                    </td>
+                    <td>
+                        <span id="spors1"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <!-- Spørsmål 2 -->
+                    <td>
+                        <!-- Nr -->
+                        <span>2.</span>
+                    </td>
+                    <td>
+                        <!-- Valg og spørsmål -->
+                        <input id="inp2" class="radio" type="radio" name="valg" value="2" onchange="endre(this.value)" />
+                    </td>
+                    <td>
+                        <span id="spors2"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <!-- Spørsmål 3 -->
+                    <td>
+                        <!-- Nr -->
+                        <span>3.</span>
+                    </td>
+                    <td>
+                        <!-- Valg og spørsmål -->
+                        <input id="inp3" class="radio" type="radio" name="valg" value="3" onchange="endre(this.value)" />
+                    </td>
+                    <td>
+                        <span id="spors3"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <!-- Spørsmål 4 -->
+                    <td>
+                        <!-- Nr -->
+                        <span>4.</span>
+                    </td>
+                    <td>
+                        <!-- Valg og spørsmål -->
+                        <input id="inp4" class="radio" type="radio" name="valg" value="4" onchange="endre(this.value)" />
+                    </td>
+                    <td>
+                        <span id="spors4"></span>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <input id="btnForrige" type="button" value="<<" onclick="forrige()" />
+            <span id="spanMelding">1</span>
+            <input id="btnNeste" type="button" value=">>" onclick="neste()" />
+        </div>
+    </div>
+</body>
+
+</html>

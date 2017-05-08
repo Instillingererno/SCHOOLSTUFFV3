@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Eksempel_4</title>
+        <meta charset="utf-8" />
+        <style type="text/css">
+            body {
+                font-family: sans-serif;
+                color: deepskyblue;
+                background-color: darkslateblue;
+            }
+            #Eksempel {
+                font-size: 400px;
+                z-index: -10;
+                position: fixed;
+            }
+            #wut {
+                transform: rotate(-20deg);
+                position: fixed;
+                top: -1100px;
+                left: 600px;
+                font-size: 1200px;
+                color: darkblue;
+                z-index: -11;
+            }
+            input {
+                margin-bottom: 40px;
+                margin-right: 20px;
+                padding: 10px;
+            }
+        </style>
+        <script>
+            "use strict"
+            function btnUtfor_onclick()
+            {
+                var Pris, Mengde, Sum;
+                Pris = document.getElementById("inpPris").value;
+                Mengde = document.getElementById("inpMengde").value;
+                Sum = Pris * Mengde;
+                document.getElementById("pMelding").innerHTML = "Summen blir " + Sum;
+            }
+            function btnNy_onclick()
+            {
+                document.getElementById("inpPris").value = "";
+                document.getElementById("inpMengde").value = "";
+                document.getElementById("pMelding").innerHTML = "";
+                document.getElementById("inpPris").focus();
+            }
+        </script>
+    </head>
+    <body>
+        <h1 id="Eksempel">Eksempel</h1> 
+        
+        <h1 id="wut">4</h1>
+        Oppgi pris:
+        <input id="inpPris" type="number" />
+        <br />
+        Oppgi mengde:
+        <input id="inpMengde" type="number" />
+        <br />
+        <input id="btnUtfor" type="button" value="Trykk meg" onclick="btnUtfor_onclick()" />
+        <input id="btnNy" type="button" value="Ny" onclick="btnNy_onclick()" />
+        <br />
+        <p id="pMelding"></p>
+    </body>    
+</html>

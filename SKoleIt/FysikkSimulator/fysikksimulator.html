@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <link type="text/css" href="stilark.css" rel="stylesheet">
+        <script>
+        /*
+        Things to add:
+        Help feature: hoved event on everything, displays text next to mouse pointer
+        Mouse size adjustment
+        Vektor display on objects
+        Global gravity
+        Reference points
+        Add forces
+        Play/pause simulation
+        How to calculate forces
+        Dragable positions - drag objects to new positions !!
+        !!Several menues, on header where current becomes debug and settings like help
+            Meny becomes adding new objects, and global settings
+                On object selection show local settings for selected object
+        //When calculating positions calculate all things for each object before a global update for all objects
+        fOKUs ON being able to add objects. Because it isnt possible yet, even though it should
+        Button to render one frame forward 
+        */
+        </script>
+    </head>
+    <body onload="pageload()">
+        <div id="header"> <!-- z-index = 10 -->
+            &nbsp;&nbsp;&nbsp;Mouse pos: <span id="spanPos">▢</span> |
+            Time spent (s): <span id="spanTime"></span> |
+            Frame count: <span id="spanFrameCount"></span> |
+            Average FPS: <span id="spanFPS"></span> |
+            Collides check: <span id="spanCollides"></span> |
+            Type check: <span id="spanType"></span>
+        </div>
+        <div id="meny"> <!-- z-index = 9 -->
+            <span id="MenyToggle" class="toggle" onclick="toggleSidenav()">>></span>
+            <!--Make ranges and other input variables
+            for the creation of new objects to simulate-->
+            <table id="table" class="SidenavContent">
+                <tr>
+                    <th colspan="2" style="text-align: center;">Settings:</th>
+                </tr>
+                <tr>
+                    <th>Collides:</th>
+                    <td onclick="toggle('collides')"><span id="inpCollides">false</span></td>
+                </tr>
+                <tr>
+                    <th>Mass:</th>
+                    <td><input id="inpMass" type="number" value="100"/></td>
+                </tr>
+                <tr>
+                    <th>Height/r:</th>
+                    <td><input id="inpHeight" type="number" value="100"/></td>
+                </tr>
+                <tr>
+                    <th>Width:</th>
+                    <td><input id="inpWidth" type="number" value="100"/></td>
+                </tr>
+                <tr>
+                    <th>Z-index:</th>
+                    <td><input id="inpZIndex" type="number" value="100"/></td>
+                </tr>
+                <tr>
+                    <th>Type:</th>
+                    <td><select id="inpType" value="this.value"><option selected="selected">Rectangle</option><option>Circle</option></select></td>
+                </tr>
+                <tr>
+                    <th>Friction nr:</th>
+                    <td><input id="inpFriction" type="number" value="0"/></td>
+                </tr>
+                <tr>
+                    <th colspan="2"><input id="btnAdd" type="button" value="Add object" onclick="btnAdd()"/></th>
+                </tr>
+                <!--
+                <tr>
+                    <th></th>
+                    <td></td>
+                </tr>
+                -->
+            </table>
+        </div>
+        <div id="canvasDiv" class="unselectable"> <!-- z-index = 8 -->
+            <canvas id="canvas" onpress class="unselectable"></canvas>
+        </div>
+    </body>
+    <script type="text/javascript" src="rammeverk.js"></script>
+    <script type="text/javascript" src="fysikk.js"></script>
+</html>

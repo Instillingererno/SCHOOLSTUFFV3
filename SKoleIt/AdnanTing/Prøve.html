@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="prove.css" rel="stylesheet" type="text/css">
+<title>Prøve 1.0v</title>
+<script>
+var Teller= 1;
+var Poeng= 0;
+var e;
+var Sporsmol= [
+    [ "Hva er 10 + 4?", "12", "14", "16", "B" ],
+	[ "Hva er 20 - 9?", "7", "13", "11", "C" ],
+	[ "Hva er 7 x 3?", "21", "24", "25", "A" ],
+	[ "Hva er 8 / 2?", "10", "2", "4", "C" ]];
+
+function LoadSporsmol() {
+    if (Sporsmol.length<=Teller){
+        document.getElementById("Prove_status").innerHTML= "Prøven er ferdig";
+        document.getElementById("Prove").innerHTML= "Du fikk " + Poeng + " riktig av " + Sporsmol.length;
+        
+    }
+    document.getElementById("Prove_status").innerHTML= "Spørsmål " + Teller + " av " + Sporsmol.length;
+    SporsmolV= Sporsmol[Teller-1][0];
+    svarA= Sporsmol[Teller-1][1];
+    svarB= Sporsmol[Teller-1][2];
+    svarC= Sporsmol[Teller-1][3];
+    document.getElementById("Prove").innerHTML= "<h3>"+SporsmolV+"</h3>";
+    document.getElementById("Prove").innerHTML+= "<input type='radio' name='Valg' value='A'> " + svarA + "</br>";
+    document.getElementById("Prove").innerHTML+= "<input type='radio' name='Valg' value='B'> " + svarB + "</br>";
+    document.getElementById("Prove").innerHTML+= "<input type='radio' name='Valg' value='C'> " + svarC + "</br>";
+    document.getElementById("Prove").innerHTML+= "<button onclick='NesteSporsmol()'>Neste spørsmål</button>";
+    
+    }
+function NesteSporsmol(){
+    Valg = document.getElementsByName("Valg");
+	for(var i=0; i<Valg.length; i++){
+		if(Valg[i].checked){
+			Valgt = Valg[i].value;
+		}
+    }
+    if (Valgt == Sporsmol[Teller][4]){
+        Poeng++;
+    }
+    Teller++;
+    LoadSporsmol();
+}
+    
+var randomVarMedDarligNavn = false; //Denne styrer alt... Problemet var logisk
+    
+function Rediger(){
+    document.getElementById("Prove_status").innerHTML="Rediger"
+    document.getElementById("Prove").innerHTML="";
+    if(randomVarMedDarligNavn == false) {
+        for(var e=0; e<Sporsmol.length; e++){
+        var SporsmolOut=Sporsmol[e][0];
+        var SvarAOut=Sporsmol[e][1];
+        var SvarBOut=Sporsmol[e][2];
+        var SvarCOut=Sporsmol[e][3];
+        var SvarROut=Sporsmol[e][4];
+        document.getElementById("Prove").innerHTML+= "<br>" + "<input type='text' id='SporsmolInp' value='"+SporsmolOut+"'/>";
+        document.getElementById("Prove").innerHTML+= "<input type='text' id='SvarAInp' value='"+SvarAOut+"'/>";
+        document.getElementById("Prove").innerHTML+= "<input type='text' id='SvarBInp' value='"+SvarBOut+"'/>";
+        document.getElementById("Prove").innerHTML+= "<input type='text' id='SvarCInp' value='"+SvarCOut+"'/>";
+        document.getElementById("Prove").innerHTML+= "<input type='text' id='RiktigsvarInp' value='"+SvarROut+"'>";
+        }
+    }
+    else {
+        for(var e=0; e<Sporsmol.length - 1; e++){
+            var SporsmolOut=Sporsmol[e][0];
+            var SvarAOut=Sporsmol[e][1];
+            var SvarBOut=Sporsmol[e][2];
+            var SvarCOut=Sporsmol[e][3];
+            var SvarROut=Sporsmol[e][4];
+            document.getElementById("Prove").innerHTML+= "<br>" + "<input type='text' id='SporsmolInp' value='"+SporsmolOut+"'/>";
+            document.getElementById("Prove").innerHTML+= "<input type='text' id='SvarAInp' value='"+SvarAOut+"'/>";
+            document.getElementById("Prove").innerHTML+= "<input type='text' id='SvarBInp' value='"+SvarBOut+"'/>";
+            document.getElementById("Prove").innerHTML+= "<input type='text' id='SvarCInp' value='"+SvarCOut+"'/>";
+            document.getElementById("Prove").innerHTML+= "<input type='text' id='RiktigsvarInp' value='"+SvarROut+"'>";
+        }
+        var e = Sporsmol.length -1;
+        var SporsmolOut = Sporsmol[e][0];
+        var SporsmolOut=Sporsmol[e][0];
+        var SvarAOut=Sporsmol[e][1];
+        var SvarBOut=Sporsmol[e][2];
+        var SvarCOut=Sporsmol[e][3];
+        var SvarROut=Sporsmol[e][4];
+        document.getElementById("Prove").innerHTML+= "<br>" + "<input type='text' id='SporsmolInpNy' value='"+SporsmolOut+"'/>";
+        document.getElementById("Prove").innerHTML+= "<input type='text' id='SvarAInpNy' value='"+SvarAOut+"'/>";
+        document.getElementById("Prove").innerHTML+= "<input type='text' id='SvarBInpNy' value='"+SvarBOut+"'/>";
+        document.getElementById("Prove").innerHTML+= "<input type='text' id='SvarCInpNy' value='"+SvarCOut+"'/>";
+        document.getElementById("Prove").innerHTML+= "<input type='text' id='RiktigsvarInpNy' value='"+SvarROut+"'>";
+        randomVarMedDarligNavn = false;
+        
+    }
+    document.getElementById("Prove").innerHTML+= "<img src='2.png' alt='+' onclick='OppdaterSpr()' style='width:12px;height:12px;'>";
+    
+    document.getElementById("Prove").innerHTML+= "</br></br>" + "<input type='text' id='SporsmolInp' value='Spørsmål'/>";
+    document.getElementById("Prove").innerHTML+= "<input type='text' id='SvarAInp' value='Svar A'/>";
+    document.getElementById("Prove").innerHTML+= "<input type='text' id='SvarBInp' value='Svar B'/>";
+    document.getElementById("Prove").innerHTML+= "<input type='text' id='SvarCInp' value='Svar C'/>";
+    document.getElementById("Prove").innerHTML+= "<input type='text' id='RiktigsvarInp' value='Riktig svar A/B/C'>" + "<img src='3.png' alt='+' onclick='LeggTil()' style='width:12px;height:12px;'>";
+}
+    
+function LeggTil(){
+    e=Sporsmol.length;
+    Sporsmol.push([])
+    Sporsmol[e].push=document.getElementById("SporsmolInp").value;
+    Sporsmol[e].push=document.getElementById("SvarAInp").value;
+    Sporsmol[e].push=document.getElementById("SvarBInp").value;
+    Sporsmol[e].push=document.getElementById("SvarCInp").value;
+    Sporsmol[e].push=document.getElementById("RiktigsvarInp").value; 
+    randomVarMedDarligNavn = true;
+    Rediger();
+}
+
+function OppdaterSpr(){
+    e=Sporsmol.length - 1;
+    Sporsmol[e][0] = document.getElementById("SporsmolInpNy").value;
+    Sporsmol[e][1] = document.getElementById("SvarAInpNy").value;
+    Sporsmol[e][2] = document.getElementById("SvarBInpNy").value;
+    Sporsmol[e][3] = document.getElementById("SvarCInpNy").value;
+    Sporsmol[e][4] = document.getElementById("RiktigsvarInpNy").value;
+    Rediger();
+}
+    
+</script>
+</head>
+<body onload="LoadSporsmol()">
+    <div id="Konteiner">
+    <div id="icon"><img src="1.png" onclick="Rediger()"><img src="2.png" onclick="Teller=1;Poeng=0;LoadSporsmol()"></div>
+<h1 id="Prove_status"></h1>
+<div id="Prove"></div>
+    </div>
+</body>
+</html>

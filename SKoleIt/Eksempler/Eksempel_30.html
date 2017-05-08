@@ -1,0 +1,146 @@
+<html>
+
+<head>
+    <script>
+        var postnr = 0;
+        var PersonTab = [];
+
+        var Person = function (Navn, Tlf, Fodt) {
+            this.Navn = Navn;
+            this.Tlf = Tlf;
+            this.Fodt = Fodt;
+            this.Alder = function () {
+                var DagensDato = new Date();
+                var aar = DagensDato.getFullYear() - this.Fodt.getFullYear();
+                var mnd = DagensDato.getMonth() - this.Fodt.getMonth();
+                var dag = DagensDato.getDate() - this.Fodt.getDate();
+                if (mnd < 0 || (aar > 0 && mnd == 0 && dag > 0)) {
+                    aar = aar - 1;
+                }
+                return aar;
+            }
+        }
+            
+        function body_onload() {
+            try {
+                var tmpTab = [];
+                tmpTab = JSON.parse(localStorage.getItem("PersonFil"));
+                for(var i = 0; i < tmpTab.length; i++) {
+                    PersonTab.push(new Person(tmpTab[i].Navn, tmpTab[i].Tlf, new Date(tmpTab[i].Fodt)));
+                }
+                btnForrige_onclick();
+            }
+            catch (e) {
+                PersonTab = [];
+            }
+        }
+        function btnNy_onclick() {
+            document.getElementById("pMelding").innerHTML = "";
+            document.getElementById("inpNavn").focus();
+            document.getElementById("inpNavn").value = "";
+            document.getElementById("inpTlf").value = "";
+            document.getElementById("inpFodt").value = "";
+            postnr = PersonTab.length;
+        }
+
+        function btnLagre_onclick() {
+            var Navn = document.getElementById("inpNavn").value;
+            var Tlf = document.getElementById("inpTlf").value;
+            var Fodt = document.getElementById("inpFodt").valueAsDate;
+            if (postnr == PersonTab.length) {
+                PersonTab.push(new Person(Navn, Tlf, Fodt));
+            } else {
+                PersonTab[postnr].Navn = Navn;
+                PersonTab[postnr].Tlf = Tlf;
+                PersonTab[postnr].Fodt = Fodt;
+            }
+            VisLokasjon();
+        }
+
+        function btnForrige_onclick() {
+            if (postnr > 0)
+                postnr -= 1;
+            document.getElementById("inpNavn").value = PersonTab[postnr].Navn;
+            document.getElementById("inpTlf").value = PersonTab[postnr].Tlf;
+            document.getElementById("inpFodt").valueAsDate = PersonTab[postnr].Fodt;
+            VisLokasjon();
+        }
+
+        function btnNeste_onclick() {
+            if (postnr < PersonTab.length - 1)
+                postnr += 1;
+            document.getElementById("inpNavn").value = PersonTab[postnr].Navn;
+            document.getElementById("inpTlf").value = PersonTab[postnr].Tlf;
+            document.getElementById("inpFodt").valueAsDate = PersonTab[postnr].Fodt;
+            VisLokasjon();
+        }
+
+        function VisLokasjon() {
+            document.getElementById("sLokasjon").innerHTML = "Post " + (postnr + 1) + " av " + PersonTab.length;
+        }
+
+        function btnUtskrift_onclick() {
+            var tekst = "";
+            PersonTab.sort(function (a, b) {
+                if (a.Navn < b.Navn)
+                    return -1;
+                if (a.Navn > b.Navn)
+                    return 1;
+                return 0;
+            });
+            for (var i = 0; i < PersonTab.length; i++) {
+                tekst += PersonTab[i].Navn + "   " + PersonTab[i].Alder() + "<br />";
+            }
+            document.getElementById("pMelding").innerHTML = tekst;
+        }
+        
+        function btnLagreFil_onclick() {
+            if(typeof (Storage) !== "undefined") {
+                localStorage.setItem("PersonFil", JSON.stringify(PersonTab));
+            }
+            else {
+                alert("Nettleseren du bruker har ikke støtte for lagring av filer. Vennligst bytt nettleser, facking scrub.")
+            }
+        }
+    </script>
+</head>
+
+<body onload="body_onload()">
+    <table>
+        <tr>
+            <td>Navn</td>
+            <td>
+                <input id="inpNavn" type="text" />
+            </td>
+        </tr>
+        <tr>
+            <td>Telefon</td>
+            <td>
+                <input id="inpTlf" type="text" />
+            </td>
+        </tr>
+        <tr>
+            <td>Fødselsdato:</td>
+            <td>
+                <input id="inpFodt" type="date" />
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>
+                <input id="btnLagre" type="button" value="Lagre" onclick="btnLagre_onclick()" />&nbsp;&nbsp;
+                <input id="btnNy" type="button" value="Ny" onclick="btnNy_onclick()" />
+                <br />
+                <input id="btnForrige" type="button" value="<<" onclick="btnForrige_onclick()" />&nbsp;
+                <input id="btnNeste" type="button" value=">>" onclick="btnNeste_onclick()" />
+                <span id="sLokasjon"></span>
+                <br />
+                <input id="btnUtskrift" type="button" value="Utskrift" onclick="btnUtskrift_onclick()" />
+                <input id="btnLagreFil" type="button" value="Lagre på fil" onclick="btnLagreFil_onclick()" />
+            </td>
+        </tr>
+    </table>
+    <p id="pMelding"></p>
+</body>
+
+</html>

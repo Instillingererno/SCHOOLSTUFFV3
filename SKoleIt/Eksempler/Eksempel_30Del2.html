@@ -1,0 +1,139 @@
+<html>
+    <head>
+        <script>
+            
+            var postNr = 0;
+            var personTab = [];
+            
+            var Person = function (Navn, Tlf, Fodt) {
+                this.Navn = Navn;
+                this.Tlf = Tlf;
+                this.Fodt = Fodt;
+                this.Alder = function() {
+                    var DaagensDato = new Date();
+                    var aar = DaagensDato.getFullYear() - Fodt.getFullYear();
+                    var mnd = DaagensDato.getMonth() - Fodt.getMonth();
+                    var dag = DaagensDato.getDate() - Fodt.getDate();
+                    if (mnd < 0 || (aar > 0 && mnd == 0 && dag > 0)) {
+                        aar = aar - 1;
+                    }
+                    return aar;
+                }
+            }
+            
+            function btnNy_onclick() {
+                document.getElementById("pMelding").innerHTML = "";
+                document.getElementById("inpNavn").value = "";
+                document.getElementById("inpTlf").value = "";
+                document.getElementById("inpFodt").value = "";
+                
+                document.getElementById("inpNavn").focus;
+                
+                postNr = personTab.length;
+            }
+            
+            function btnLagre_onclick() {
+                var Navn = document.getElementById("inpNavn").value;
+                var Tlf = document.getElementById("inpTlf").value;
+                var Fodt = document.getElementById("inpFodt").valueAsDate;
+                
+                if (postNr == personTab.length) {
+                    personTab.push(new Person(Navn, Tlf, Fodt));
+                }
+                else {
+                    personTab[postNr].Navn = Navn;
+                    personTab[postNr].Tlf = Tlf;
+                    personTab[postNr].Fodt = Fodt;
+                }
+                VisLokasjon();
+            }
+            
+            function btnForrige_onclick() {
+                if (postNr > 0)
+                    postNr--;
+                document.getElementById("inpNavn").value = personTab[postNr].Navn;
+                document.getElementById("inpTlf").value = personTab[postNr].Tlf;
+                document.getElementById("inpFodt").valueAsDate = personTab[postNr].Fodt;
+                Vislokasjon();
+            }
+        
+            function btnNeste_onclick() {
+                if (postNr < personTab.length - 1)
+                    postNr++;
+                document.getElementById("inpNavn").value = personTab[postNr].Navn;
+                document.getElementById("inpTlf").value = personTab[postNr].Tlf;
+                document.getElementById("inpFodt").valueAsDate = personTab[postNr].Fodt;
+                Vislokasjon();
+            }
+            
+            function btnUtskrift_onclick() {
+                var tekst = "";
+                personTab.sort(function(a,b) {
+                    if (a.Navn < b.Navn)
+                        return -1;
+                    if (a.Navn > b.Navn)
+                        return 1;
+                    return 0;
+                });
+                for (var i = 0; i < personTab.length; i++) {
+                    tekst += personTab[i].Navn + "   " + personTab[i].Alder() + "<br/>";
+                }
+                document.getElementById("pMelding").innerHTML = tekst;
+            }
+            
+            function VisLokasjon() {
+                document.getElementById("sPost").innerHTML = "Post " + (postNr + 1) + " av " + personTab.length;
+            }
+        </script>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>
+                    Navn:
+                </td>
+                <td>
+                    <input id="inpNavn" type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Telefon:
+                </td>
+                <td>
+                    <input id="inpTlf" type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Fødselsdato:
+                </td>
+                <td>
+                    <input id="inpFodt" type="date">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input id="btnLagre" type="button" value="Lagre" onclick="btnLagre_onclick()"> &nbsp; <input id="btnNy" type="button" value="Ny" onclick="btnNy_onclick()">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input id="btnForrige" type="button" value="<<" onclick="btnForrige_onclick()"> &nbsp; <input id="btnNeste" type="button" value=">>" onclick="btnNeste_onclick()"> &nbsp; <span id="sPost"></span> 
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input id="btnUtskrift" type="button" value="Utskrift" onclick="btnUtskrift_onclick()">
+                </td>
+            </tr>
+        </table>
+        <p id="pMelding"></p>
+    </body>
+</html>

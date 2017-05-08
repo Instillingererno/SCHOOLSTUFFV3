@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <title>Eksempel 15</title>
+        
+        <meta charset="utf-8">
+        <meta name="description" content="" />
+        <script>
+            function body_onload() {
+                var tekst = "";
+                for (var i = 1; i < 20; i++) {
+                    tekst += "Runde nr " + i + " i løkken <br />"
+                }
+                document.getElementById("pMelding").innerHTML = tekst;
+            }
+        
+        </script>
+    </head>
+    
+    <body onload="body_onload()">
+        <p id="pMelding"></p>
+    </body>
+</html>

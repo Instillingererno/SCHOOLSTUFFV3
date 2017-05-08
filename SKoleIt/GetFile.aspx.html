@@ -1,0 +1,166 @@
+
+<!-- saved from url=(0538)https://files.itslearning.com/File/Download/GetFile.aspx?FileName=Paralaztest.html&Path=KQpNZnjf%2beHswHEhFjAZFSpkTruHypBPs%2b8jiYwWorFtKGtRSLHVy6u663cbup%2fA%2fhqYIg6U788gZgDOlopoRvSd8jYl4zku5fsPZzhSXdn7Z56VusqIWdFNyCSBMQ5Rrq4zj85zdatYuPOMGLo%2bIotc9ymAUatkAU225Ekrhyc%3d&MimeType=text%2fhtml&Domain=rfk.itslearning.com&TimeStamp=636204159303252857&Signature=rz38LSUxneawk5H0NnU%2fK6gtxYhqMnQHY9tuYAXjwCQR6c1Px8VDrUVcUH2mMW2uXJc9CdnXinMAF%2fmS7pKYcfXuy51MeHJA8t2eIyMLS9qKR1t2iyQiT3LBxM07h6GlZTOv1yb5TCZdNTzlNgecfA9jM9xoIoWE8byLGyp06Xo%3d -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script>
+            
+            //http://joco.name/wp-content/uploads/2014/03/rgb_2048_1.png
+            
+            //Settings, these can be changed
+            var framerate = 250; //Default = 30; Max-250 ;Frames per second, how many times screen updating happens per second
+            var timeCalculationTimer = 1000; //Default = 1000; How often timer is updated, makes no difference under 1000, delays updating over 1000!
+            var AccMultiplier = 250;
+            var friction = 0.999;
+            //Global variables; By function
+                //Update
+            var updateInterval;
+            var frameCount = 0;
+            //Calculations (plural)
+            var calculateInterval;
+                //FPS
+            var FPS = 0;
+                //Timer
+            var timingInterval;
+            var timeSpent = 0;
+            var timeAtStart = Date.now(); //Time when timer() is called!
+            var timeAtPresent = 0; //Time when calculateSpentTime() is called!
+            var timingInterval = 0;
+                //Mouse posistion
+            var xpos;
+            var ypos;
+                //Div movement
+            var posFix = 40; //Half of height/width of div (perfect Enlæsh)
+            var posX = 300;
+            var posY = 300;
+            var speedX = 0; //Horizontal speed where negative values brings it left
+            var speedY = 0; //Speed where negativ values means downwards speed
+            var accX = 0; //Negativ values mean more speed left
+            var accY = 0; //Negativ values mean more speed downwards
+            //See acceleration in settings
+            
+            onmousemove = function(e){xpos = e.clientX; ypos = e.clientY}
+            
+            function pageload() {
+                timingInterval = setInterval(timer, timeCalculationTimer); //Calls timer function to start "stopclock"
+                updateInterval = setInterval(update, Math.round(1000 / framerate)); //Starts the update function based on framerate set in settings
+                calculateInterval = setInterval(calculate, Math.round(1000 / framerate));
+            }
+            function btnURL_onclick(value) {
+                switch(value) {
+                    case "pageload":
+                        
+                        break;
+                    case "buttonpress":
+                        
+                        break;
+                }
+            }
+            function timer() {
+                //Timer
+                timeAtPresent = Date.now(); //Updates timeAtPresent variable to current time
+                timeSpent = Math.round((timeAtPresent - timeAtStart) / 1000); //Calculates the spent time in seconds
+                
+                //FPS
+                FPS = (Math.floor((frameCount / timeSpent)*10)/10).toFixed(1);       
+            }
+            function calculate() {
+                //Accelleration and vektor calculation
+                //Distance change
+                posY = posY - speedY/framerate;
+                posX = posX + speedX/framerate;
+                //Speed change
+                speedY = speedY - accY/framerate;
+                speedX = speedX + accX/framerate;
+                //Acceleration change
+                accX = (xpos-posX) * (AccMultiplier/framerate); //(xpos - 1.1^posX) * (AccMultiplier/framerate)
+                accY = (ypos-posY) * (AccMultiplier/framerate); //(ypos - 1.1^posY) * (AccMultiplier/framerate)
+                //Friction change
+                speedX = speedX * friction;
+                speedY = speedY * friction;
+            }
+            function update() {
+                frameCount ++;
+                document.getElementById("spanPos").innerHTML = xpos + " , " + ypos;
+                document.getElementById("spanTime").innerHTML = timeSpent;
+                document.getElementById("spanFrameCount").innerHTML = frameCount;
+                document.getElementById("spanFPS").innerHTML = FPS;
+                
+                
+                document.getElementById("test").style.left = (posX - posFix) + "px";
+                document.getElementById("test").style.top = (posY - posFix) + "px";
+                
+                
+                if (xpos < posX && ypos < posY) {
+                    document.getElementById("test2").style.left = xpos + "px";
+                    document.getElementById("test2").style.top = ypos + "px";
+                    document.getElementById("test2").style.height = (posY - ypos) + "px";
+                    document.getElementById("test2").style.width = (posX - xpos) + "px";
+                }
+                else if (xpos < posX && ypos > posY) {
+                    document.getElementById("test2").style.left = xpos + "px";
+                    document.getElementById("test2").style.top = (posY) + "px";
+                    document.getElementById("test2").style.height = (ypos - posY) + "px";
+                    document.getElementById("test2").style.width = (posX - xpos) + "px";
+                }
+                else if(xpos > posX && ypos < posY) {
+                    document.getElementById("test2").style.left = posX + "px";
+                    document.getElementById("test2").style.top = ypos + "px";
+                    document.getElementById("test2").style.height = (posY - ypos) + "px";
+                    document.getElementById("test2").style.width = (xpos - posX) + "px";
+                }
+                else if(xpos > posX && ypos > posY) {
+                    document.getElementById("test2").style.left = posX + "px";
+                    document.getElementById("test2").style.top = posY + "px";
+                    document.getElementById("test2").style.height = (ypos - posY) + "px";
+                    document.getElementById("test2").style.width = (xpos - posX) + "px";
+                }
+        
+                document.getElementById("1").innerHTML = posY;
+                document.getElementById("2").innerHTML = posX;
+                document.getElementById("3").innerHTML = speedY;
+                document.getElementById("4").innerHTML = speedX;
+                document.getElementById("5").innerHTML = accX;
+                document.getElementById("6").innerHTML = accY;
+            }
+        </script>
+        <style>
+            body {
+                background-attachment: fixed;
+                background-color: grey;
+                background-image: url("http://www.danieleliberti.org/wp-content/uploads/2014/08/20140819_backgroundk.jpg");
+            }
+            #test2 {
+                background-attachment: fixed;
+                background-color: aquamarine;
+                background-image: url("http://www.danieleliberti.org/wp-content/uploads/2014/08/20140819_backgroundk.jpg");
+                -webkit-filter: invert(100%);
+                box-shadow: 10px 10px 5px 0px rgba(255,255,255,0.75);
+            }
+            #test {
+                box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+            }
+        </style>
+    </head>
+    <body onload="pageload()" style="background-color: grey;">
+        <div style="color: white;">
+        | Mouse pos: <span id="spanPos">▢</span> |
+        Time spent (s): <span id="spanTime"></span> |
+        Frame count: <span id="spanFrameCount"></span> |
+        Average FPS: <span id="spanFPS"></span> |
+        Custom URL: <input id="inpURL" type="text" /> |
+        <input id="btnURL" type="button" onclick="btnURL_onclick('')" />
+        </div>
+        <br>
+        <table style="color: white;">
+            <tbody><tr><td>posX</td><td><span id="2"></span></td></tr>
+            <tr><td>posY</td><td><span id="1"></span></td></tr>
+            <tr><td>speedX</td><td><span id="4"></span></td></tr>
+            <tr><td>speedY</td><td><span id="3"></span></td></tr>
+            <tr><td>accX</td><td><span id="5"></span></td></tr>
+            <tr><td>accY</td><td><span id="6"></span></td></tr>
+        </tbody></table>
+        <br>
+        <br>
+        <div id="test2" style="position: fixed;"></div>
+        <div id="test" style="border-radius: 1000px; height: 80px; width: 80px; background-color: darkred; border: 5px solid red; position: fixed;"></div>
+    
+</body></html>

@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <script>
+            var tab = [0,0,0,0,0,0];
+            
+            function btnUtfor_onclick() {
+                var antall = document.getElementById("inpAntall").value;
+                var tekst = "";
+                
+                for(var i = 1; i <= antall; i++) {
+                    var kast = Math.floor((Math.random()*6) + 1);
+                    tab[kast -1] += 1;
+                }
+                for(var i = 1; i <= 6; i++) {
+                    tekst += "Terningkast " + i + " ble kastet " + tab[i-1] + " ganger! <br />"
+                }
+                document.getElementById("pMelding").innerHTML = tekst;
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Skriv inn, hvor mange ganger programmet skal simulere terningkast:</h1>
+        <br />
+        <input id="inpAntall" type="number" />
+        <input id="btnUtfor" type="button" value="Trykk for å utføre" onclick="btnUtfor_onclick()" />
+        <br />
+        <p id="pMelding"></p>
+    </body>
+</html>

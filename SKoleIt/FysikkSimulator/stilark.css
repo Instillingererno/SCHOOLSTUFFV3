@@ -1,0 +1,144 @@
+html {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    background-color: #f4f4f4;
+    overflow: hidden;
+}
+#header {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: #f4f4f4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 30px;
+    line-height: 30px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    z-index: 10;
+}
+#meny {
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 30px;
+    right: 0px;
+    width: 300px;
+    background-color: #333333;
+    color: white;
+    border-left: solid rgb(255,125,0) 5px;
+    border-left-style: ridge;
+    z-index: 9;
+    transition: 1s;
+    overflow: hidden;
+}
+#meny .toggle {
+    position: absolute;
+    top 0;
+    left: 0;
+    font-size: 36px;
+}
+#meny .SidenavContent {
+    transition: 1s;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    width: 300px;
+}
+#canvasDiv {
+    position: fixed;
+    z-index: 8;
+    top: 30px;
+    left: 0px;
+}
+#canvas {
+    background-color: blue;
+}
+#table {
+    font-size: 20px;
+    line-height: 30px;
+    color: #f4f4f4;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+tr {
+    border-bottom: solid 1px white;
+    height: 30px;
+}
+td {
+    height: 30px;
+    text-align: center;
+    width: 50%;
+    font-weight: normal;
+}
+th {
+    text-align: left;
+    padding-left: 20px;
+    width: 50%;
+}
+td:hover, input[type=number]:hover {
+    background-color: white;
+    color: #333;
+}
+input[type=number]:focus {
+    outline: none;
+}
+input[type=number] {
+    height: inherit;
+    background-color: #333;
+    border: none;
+    width: 100%;
+    color: #f3f3f3;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+select {
+    height: 30px;
+    line-height: 30px;
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+    background-color: #333;
+    border: none;
+    color: #f3f3f3;
+}
+select:focus {
+    outline: none;
+}
+select:hover {
+    background-color: #f3f3f3;
+    color: #333;
+}
+input[type=button] {
+    width: 93%;
+    height: 100%;
+    border: none;
+    background-color: #333;
+    color: #f3f3f3;
+    font-size: 20px;
+}
+input[type=button]:selected {
+    outline: none;
+} 
+input[type=button]:hover {
+    background-color: #f3f3f3;
+    color: #333;
+}
+.unselectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}

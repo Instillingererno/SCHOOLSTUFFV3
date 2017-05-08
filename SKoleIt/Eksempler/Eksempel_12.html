@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<head>
+    <script>
+        function body_onload() {
+            var teller = 0;
+            var sum = 0;
+            var tekst = "";
+            while (teller < 20) {
+                teller += 1;
+                tekst += teller + " ";
+                sum += teller;
+            }
+            document.getElementById("pTallene").innerHTML = tekst;
+            document.getElementById("pSum").innerHTML = "Summen av de 20 tallene blir " + sum;
+        }
+    </script>
+</head>
+<body onload="body_onload()">
+    <p id="pTallene"></p>
+    <p id="pSum"></p>
+</body>

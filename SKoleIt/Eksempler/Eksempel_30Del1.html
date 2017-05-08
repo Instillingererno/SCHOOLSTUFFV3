@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <script>
+            var Person = function (Navn, Tlf, Fodt) {
+                this.Navn = Navn;
+                this.Tlf = Tlf;
+                this.Fodt = Fodt;
+                this.Alder = function() {
+                    var DaagensDato = new Date();
+                    var aar = DaagensDato.getFullYear() - Fodt.getFullYear();
+                    var mnd = DaagensDato.getMonth() - Fodt.getMonth();
+                    var dag = DaagensDato.getDate() - Fodt.getDate();
+                    if (mnd < 0 || (aar > 0 && mnd == 0 && dag > 0)) {
+                        aar = aar - 1;
+                    }
+                    return aar;
+                }
+            }
+            function btnOK_onclick() {
+                var Navn = document.getElementById("inpNavn").value;
+                var Tlf = document.getElementById("inpTlf").value;
+                var Fodt = document.getElementById("inpFodt").valueAsDate;
+                
+                var enPerson = new Person(Navn, Tlf, Fodt);
+                
+                document.getElementById("pMelding").innerHTML = enPerson.Navn + " er " + enPerson.Alder() + " år gammel";
+            }
+        
+        </script>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>
+                    Navn:
+                </td>
+                <td>
+                    <input id="inpNavn" type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Telefon:
+                </td>
+                <td>
+                    <input id="inpTlf" type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Fødselsdato:
+                </td>
+                <td>
+                    <input id="inpFodt" type="date">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input id="btnOK" type="button" value="OK" onclick="btnOK_onclick()">
+                </td>
+            </tr>
+        </table>
+        <p id="pMelding"></p>
+    </body>
+</html>

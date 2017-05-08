@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <title>Hjemmeside</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <script src="common2.js"></script>
+        <script>
+            onresize = function(){
+                document.getElementById("ifrDiv").style.height = window.innerHeight - 50;
+                document.getElementById("request").style.left = window.innerHeight - document.getElementById("request").style.width/2;
+            }
+            
+            var tabs = [];
+            var pwd = [];
+            var tgl = false;
+            
+            function pageload() {
+                tabs = GetFile("savefile");
+                document.getElementById("ifrDiv").style.height = window.innerHeight - 50;
+            }
+            function openPage(name) {
+                var x = document.getElementsByClassName("page");
+                for (var i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                document.getElementById(name).style.display = "block";
+            }
+            function add() {
+                a = document.getElementById("plane");
+                b = document.getElementById("request");
+                a.style.height = "100%";
+                a.style.opacity = "1";
+                b.style.height = 500;
+                b.style.opacity = "1";
+            }
+            function toggle() {
+                if(tgl == false) {
+                    document.getElementById("sidebar").style.width = "400";
+                    tgl = true;
+                }
+                else {
+                    document.getElementById("sidebar").style.width = "0";
+                    tgl = false;
+                }
+            }
+        </script>
+    </head>
+    <body onload="pageload()">
+        <div id="header">
+            <ul class="navbar">
+                <li><a onclick="add()">+</a></li>
+                <li style="float:right;"><a onclick="toggle()">=</a></li>
+            </ul>
+        </div>
+        <div id="sidebar">
+            
+        </div>
+        <div id="ifrDiv">
+            <iframe></iframe>
+        </div>
+        <div id="plane">
+            <div id="request">
+                <h2>Navn:</h2> <br /> <input id="inpNavn" type="text">
+                <br />
+                <br />
+                <h2>URL:</h2> <br /> <input id="inpURL" type="text">
+        
+            </div>
+        </div>
+    </body>
+</html>

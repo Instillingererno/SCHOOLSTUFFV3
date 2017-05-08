@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <title>...</title>
+        
+        <meta charset="utf-8">
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <link rel="stylesheet" type="text/css" href="TesterIT/CSSLib.css">
+        <script src="TesterIT/JSLib.js"></script>
+        
+        <script>
+        function btnUtfor_onclick() {
+	       
+            var Tall;
+            Tall = document.getElementById("inpTall").valueAsNumber;
+            
+           
+            if (Tall > 100)
+                document.getElementById("pMelding").innerHTML = "Tallet er større enn 100";
+           
+            else if (tall == 100)
+                document.getElementById("pMelding").innerHTML = "Taller er lik 100";
+            else
+               document.getElementById("pMelding").innerHTML = "Taller er mindre eller lik 100";
+        }   
+        </script>
+    </head>
+    
+    <body>
+        Oppgi ett tall: <input id="inpTall" type='number' />
+        <br />
+        <input id="btnUtfor" type='button' value="Utfør" onclick="btnUtfor_onclick()" />
+        <p id="pMelding"></p>
+    </body>
+</html>

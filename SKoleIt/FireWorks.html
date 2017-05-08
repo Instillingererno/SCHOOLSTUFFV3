@@ -1,0 +1,152 @@
+<html>
+    <head>
+        <script src="ColourGeneration.js"></script>
+        <script>
+            var mouseX, mouseY, timeMultiplier, minHeight, heightVariance, delta, chance, Intervalspeed, sparkleCount, c, ctx, fireworks, addInterval, calInterval, timeInterval, ranNr, canWidth, canHeight, timeAtStart, timeSpent, frameCount, FPS, gravity;
+            timeMultiplier = 5;
+            fireworks = [];
+            sparkles = [];
+            framerate = 250;
+            frameCount = 0;
+            gravity = 60;
+            friction = 0.99;
+            fadeTime = 5;
+            chance = 0.5; //Prosentvis sannsynlighet for racket per intervall (1sekund)
+            Intervalspeed = 1000; //In ms, for the addition of new rockets, balanse with chance
+            sparkleCount = 2000;
+            minHeight = 2/4 * window.innerHeight; //In px from bottom
+            heightVariance = 1/4 * window.innerHeight; //Potential difference in px between rockets only works upwards
+            explosionForceMultiplier = 50;
+            
+            onmousemove = function(e){mouseX = e.clientX; mouseY = e.clientY};
+            
+            function pageload() {
+                c = document.getElementById("canvas");
+                ctx = c.getContext("2d");
+                timeAtStart = Date.now();
+                
+                canWidth = window.innerWidth;
+                canHeight = window.innerHeight;
+                
+                document.getElementById("canvasDiv").style.height = window.innerHeight;
+                document.getElementById("canvasDiv").style.width = window.innerWidth;
+                document.getElementById("canvas").height = window.innerHeight;
+                document.getElementById("canvas").width = window.innerWidth;
+                
+                addInterval = setInterval(function(){add(0)}, Intervalspeed);
+                calInterval = setInterval(calculate, (1000 / framerate));
+                timeInterval = setInterval(timer, 1000);
+            }
+            function timer() {
+                timeSpent = Date.now() - timeAtStart; //Updates timeAtPresent variable to current time       
+                FPS = (frameCount / timeSpent).toFixed(1);   
+                document.getElementById("spanSparkles").innerHTML = "   Sparkles Count: " + sparkles.length + " FPS: " + FPS;
+                frameCount = 0;
+            }
+            function add(value) {
+                switch(value) {
+                    case 0:
+                        ranNr = Math.random();
+                        if(ranNr < chance) {
+                        fireworks.push(new firework(
+                        Math.random() * canWidth,
+                        Math.sqrt(2 * gravity * (minHeight + Math.random() * heightVariance))));
+                        }
+                        break;
+                    case 1:
+                        fireworks.push(new firework(
+                        mouseX, 
+                        Math.sqrt(2 * gravity * (canHeight - mouseY))
+                        ));
+                        break;
+                }
+            }
+            function calculate() {
+                delta = (1000 / framerate / 1000) * timeMultiplier;
+                for(var i = 0; i < fireworks.length; i++) {
+                    if(fireworks[i].speed > 0) {
+                        fireworks[i].yPos -= fireworks[i].speed * delta;
+                        fireworks[i].speed -= gravity * delta;
+                    }
+                    else {
+                        var temp = randomColor();
+                        for(var j = 0; j <= fireworks[i].sparkleCount; j++) {
+                            sparkles.push(new sparkle(fireworks[i].xPos, fireworks[i].yPos, temp));
+                        }
+                        fireworks[i].exploded = true;
+                    }
+                }
+                for(var k = 0; k < sparkles.length; k++) {
+                    sparkles[k].yPos += sparkles[k].ySpeed * delta;
+                    sparkles[k].xPos += sparkles[k].xSpeed * delta;
+                    //sparkles[k].ySpeed += gravity;
+                    //sparkles[k].xSpeed = sparkles[k].xSpeed * friction;
+                    sparkles[k].timealive += 1 * delta;
+                    if(sparkles[k].alpha > 0.0000000000001)
+                        sparkles[k].alpha -= fadeTime / (Math.random() * plussminus() + fadeTime * timeMultiplier) * delta;
+                    else {
+                        sparkles[k].alpha = 0;
+                    }
+                }
+                draw();
+            }
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for(var i = 0; i < fireworks.length; i++) {
+                    ctx.globalAlpha = 1;
+                    ctx.fillStyle = "#ff0505";
+                    ctx.fillRect(fireworks[i].xPos, fireworks[i].yPos, 10, 15);
+                    if(fireworks[i].exploded == true)
+                        fireworks.shift();
+                }
+                for(var j = 0; j < sparkles.length; j++) {
+                    if((sparkles[j].yPos > 0 && sparkles[j].yPos < canHeight) || (sparkles[j].xPos > 0 && sparkles[j].xPos < canWidth)) {
+                        ctx.globalAlpha = sparkles[j].alpha;
+                        ctx.fillStyle = sparkles[j].colour;
+                        ctx.fillRect(sparkles[j].xPos, sparkles[j].yPos, 4 + sparkles[j].height, 4 + sparkles[j].height);
+                    }
+                    else
+                        sparkles.shift();
+                }
+                frameCount++;
+            }
+            function plussminus() {
+                var temp = Math.floor(Math.random() * 2) + 1;
+                if(temp == 2)
+                    return 1;
+                else
+                    return -1;
+            }
+            function toggle() {
+                
+            }
+            
+            var firework = function(xPos, speed) {
+                this.xPos = xPos;
+                this.yPos = canHeight;
+                this.speed = speed;
+                this.sparkleCount = sparkleCount; //fra 1 til 5
+                this.exploded = false;
+            }
+            var sparkle = function(xPos, yPos, colour) {
+                this.xPos = xPos;
+                this.yPos = yPos;
+                this.height = Math.floor(Math.random() * 3 + 1) / 2;
+                this.colour = colour;
+                this.alpha = 1;
+                this.force = Math.random() * explosionForceMultiplier;
+                this.xSpeed = Math.random() * explosionForceMultiplier;
+                this.ySpeed = (Math.sqrt(this.force*this.force - this.xSpeed*this.xSpeed)) * plussminus();
+                this.xSpeed = this.xSpeed * plussminus();
+                this.fadeTime = Math.random() * fadeTime;
+                this.timealive = 0;
+            }
+        </script>
+    </head>
+    <body onload="pageload()" style="margin: 0; padding: 0;">
+        <div id="canvasDiv" onmousedown="add(1)">
+            <span id="spanSparkles" style="position: fixed; top: 0; left: 0; z-index: 100; color: white;"></span>
+            <canvas id="canvas" style="background-color: black;"></canvas>
+        </div>
+    </body>
+</html>

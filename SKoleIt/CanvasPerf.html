@@ -1,0 +1,19 @@
+<html>
+
+<body>
+    <canvas id="c" width="640" height="480"></canvas>
+
+    <script>
+        var canvas = document.getElementById("c");
+        var context = canvas.getContext("2d");
+
+        var HEIGHT = 100;
+
+        for (var i = 0; i < canvas.width; i++) {
+            context.fillStyle = "#F0000";
+            context.fillRect(i, HEIGHT, 1, 1);
+        }
+    </script>
+</body>
+
+</html>

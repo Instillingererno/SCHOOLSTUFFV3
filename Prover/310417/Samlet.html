@@ -1,0 +1,29 @@
+<html>
+
+<head>
+    <style>
+        #ramme {
+            margin: 0 auto;
+            width: 750px;
+        }
+
+    </style>
+    <script>
+        function reload() {
+            document.getElementById('animasjon').src = 'Oppgave1_Publisert/index.html'
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="ramme">
+        <h1>Velkommen til "Skole med idrettslinje!"</h1>
+        <iframe id="animasjon" src="Oppgave1_Publisert/index.html" width="750" height="350" style="overflow: hidden"></iframe>
+        <input id="iframeReload" type="button" value="Se på ny" onclick="reload()">
+        <h2>Se hvor mye calorier din frokost inneholder ved å sette inn antall og trykk beregn</h2>
+        <iframe src="Oppgave2/Index.html" width="750" height="500"></iframe>
+    </div>
+</body>
+
+</html>

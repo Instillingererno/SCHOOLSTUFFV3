@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        
+        <title>Eksempel8.1</title>
+        
+        <meta charset="utf-8">
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <link rel="stylesheet" type="text/css" href="TesterIT/CSSLib.css">
+        <script src="TesterIT/JSLib.js"></script>
+        
+        <script>
+            var radius = 0;
+            var storrelse = 50;
+            var farge = 'red';
+            
+            function endre(valg,verdi) {
+                switch (valg) {
+                    case 1:
+                        radius = verdi;
+                        break;
+                    case 2:
+                        storrelse = verdi;
+                        break;
+                    default:
+                        farge = verdi;
+                        break;
+                }
+                document.getElementById("divBoksen").setAttribute('style',"border-radius: " + radius + "0px;" + "width: " + storrelse + "px;" + "height: " + storrelse + "px;" + "background-color: " + farge + ";");
+            }
+            
+            function btnNy_onclick() {
+                var selFarge = document.getElementById("selFarge");
+                var nyOpt = document.createElement("option");
+                nyOpt.text = document.getElementById("inpFarge").value;
+                selFarge.add(nyOpt);
+            }
+        </script>
+        
+    </head>
+    <!-- <input id="" type="" onclick=""> -->
+    <body>
+        <table>
+            <tr>
+                <td>
+                    <fieldset style="width: 170px">
+                        <legend>Velg type:</legend>
+                        <label>
+                            <input id="radFirkant" type='radio' name="Type" value="Firkant" checked="checked" onchange="endre(1,0)">
+                            Firkant
+                        </label>
+                        <label>
+                            <input id="radSirkel" type='radio' name="Type" value="Sirkel" onchange="endre(1,100)">
+                            Sirkel
+                        </label>
+                    </fieldset>
+                </td>
+                <td>
+                    Størrelse:<br/>
+                    <input id="ranStorrelse" type='range' value='0' min='0' max='1600' oninput="endre(2,this.value)">
+                </td>
+                <td>
+                    Velg farge:<br/>
+                    <select id="selFarge" onchange="endre(3,this.value)">
+                        <option value='red' selected='selected'>Rød</option>
+                        <option value='yellow'>Gul</option>
+                        <option value='blue'>Blå</option>
+                        <option value='green'>Grønn</option>
+                    </select>
+                </td>
+                <td>
+                    <fieldset style="width: 150px">
+                        <legend>Tilføy farge:</legend>
+                        <input id="intFarge" type='color'>
+                        <input id="btnNy" value="Ny" type='button' onclick="btnNy_onclick()">
+                    </fieldset>
+                </td>
+            </tr>
+        </table>
+        <div id="divBoksen"></div>
+    </body>
+</html>

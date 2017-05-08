@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Eksempel_3</title>
+        <meta charset="utf-8" />
+        <style type="text/css">
+            body {
+                font-family: sans-serif;
+                color: deepskyblue;
+                background-color: darkslateblue;
+            }
+            #Eksempel {
+                font-size: 400px;
+                z-index: -10;
+                position: fixed;
+            }
+            #wut {
+                transform: rotate(-20deg);
+                position: fixed;
+                top: -1100px;
+                left: 600px;
+                font-size: 1200px;
+                color: darkblue;
+                z-index: -11;
+            }
+            input {
+                margin-bottom: 40px;
+                margin-right: 20px;
+                padding: 10px;
+            }
+        </style>
+        <script>
+            "use strict"
+            function btnUtfor_onclick()
+            {
+                var Navn; //Ingen prefix på variabler som blir definert i <script>, de i <body> må det!
+                Navn = document.getElementById("txtNavn").value;
+                document.getElementById("pMelding").innerHTML = "gratz, " + Navn + " - du er nå en programmerer"
+            }
+            function btnNy_onclick()
+            {
+                document.getElementById("txtNavn").value = ""
+                document.getElementById("pMelding").innerHTML = ""
+                document.getElementById("txtNavn").focus();
+            }
+        </script>
+    </head>
+    <body>
+        <h1 id="Eksempel">Eksempel</h1> 
+        <h1 id="wut">3</h1>
+        Oppgi navn:
+        <input id="txtNavn" type="text" />
+        <br />
+        <input id="btnUtfor" type="button" value="Utfør" onclick="btnUtfor_onclick()" />
+        <input id="btnNy" type="button" value="Ny" onclick="btnNy_onclick()" />
+        <br />
+        <p id="pMelding"></p>
+    </body>    
+</html>
