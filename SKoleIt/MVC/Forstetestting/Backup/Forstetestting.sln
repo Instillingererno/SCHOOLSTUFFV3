@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D2AC0E0A-1168-4149-8B0B-6A8290171853}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5F1F0ADC-97F9-410E-B325-688AE5865E6E}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Forstetestting", "src\Forstetestting\Forstetestting.xproj", "{35A6D9F4-955B-4DB2-B81A-AC855DFC2845}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35A6D9F4-955B-4DB2-B81A-AC855DFC2845}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35A6D9F4-955B-4DB2-B81A-AC855DFC2845}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35A6D9F4-955B-4DB2-B81A-AC855DFC2845}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35A6D9F4-955B-4DB2-B81A-AC855DFC2845}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{35A6D9F4-955B-4DB2-B81A-AC855DFC2845} = {D2AC0E0A-1168-4149-8B0B-6A8290171853}
+	EndGlobalSection
+EndGlobal

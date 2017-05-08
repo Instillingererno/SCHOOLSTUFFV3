@@ -1,0 +1,166 @@
+<html>
+    <head>
+        <script>
+            var timeInterval;
+            var timeSpent = 0;
+            var calInterval;
+            var calSpent = 0;
+            var Numbers = [];
+            var rangeTop = 0;
+            var Ans = [];
+            var time;
+            var timeTemp;
+            var Sel = "LowHighInt";
+            var tempTable = [];
+            
+            function qualityCheck(inp) {
+                switch(inp) {
+                    case 1:
+                        if(document.getElementById("inpRange").valueAsNumber < 1)
+                            document.getElementById("spanQual1").innerHTML = "Range-top needs to be a positiv integer equal or higher than 1";
+                        else
+                            document.getElementById("spanQual1").innerHTML = "";
+                        break;
+                    case 2:
+                }
+            }
+            function hub(value, x) {
+                switch(value) {
+                    case "timeStart":
+                        time = Date.now();
+                        timeStart = setInterval("hub('timeAdvance')", 1000);
+                        break;
+                    case "timeStop":
+                        clearInterval(timeStart);
+                        clearInterval(calInterval);
+                        break;
+                    case "timeAdvance":
+                        timeTemp = Date.now();
+                        var woops = timeTemp - time;
+                        woops = woops / 1000;
+                        timeSpent = Math.floor(woops);
+                        break;
+                    case "Reset": //MORE SHIIIIIIIT NEEDS TO BE HERE
+                        timeSpent = 0;
+                        calSpent = 0;
+                        Numbers = [];
+                        break;
+                    case "calStart":
+                        calculation();
+                        break;
+                    case "selection":
+                        Sel = x;
+                        break;
+                }
+                document.getElementById("spanTime").innerHTML = timeSpent;
+                document.getElementById("spanIteration").innerHTML = calSpent;
+            }
+            function calculation() {
+                rangeTop = document.getElementById("inpRange").valueAsNumber;
+                var timeout = document.getElementById("inpTime").valueAsNumber;
+                for(var i = 1; i <= rangeTop; i++) {
+                    Numbers.push(new Number(i));
+                }
+                calInterval = setInterval("update()", timeout);
+            }
+            function update() {
+                for(var i = 0; i < rangeTop; i++) {
+                    if(Numbers[i][3] == false) {
+                        if(Numbers[i][2] == 1) {
+                            Numbers[i][3] = true;
+                        }
+                        else {
+                            Numbers[i][1] ++;
+                            var c = Numbers[i][2];
+                            var k = c.toString();
+                            var length = k.length;
+                            Numbers[i][2] = 0;
+                            for(var j = 0; j < length; j++) {
+                                var v = k.substr(j,1);
+                                var m = v * v;
+                                Numbers[i][2] += m;
+                            }
+                        }
+                    }
+                    else {
+                        if(Numbers[i][4] == false) {
+                            Numbers[i][5] = "   " + Numbers[i][0] + "(" + Numbers[i][1] + ")";
+                            Ans.push(Numbers[i]);
+                            Numbers[i][4] = true;
+                        }
+                        /*if(Numbers[i][4] == false) {
+                            document.getElementById("Happy").innerHTML += "<span style='float:left;'>" + Numbers[i][0] + "("+ Numbers[i][1] +"),</span>&nbsp;";
+                            Numbers[i][4] = true;
+                        }*/
+                    } 
+                }
+                calSpent ++;
+                document.getElementById("spanIteration").innerHTML = calSpent;
+            }
+            function btnShow_onclick() {
+                document.getElementById("Happy").innerHTML = "";
+                tempTable = [];
+                switch(Sel) {
+                    case "LowHighInt":
+                        Ans.sort(function (a, b) {
+                            return a[0] - b[0];
+                        });
+                        break;
+                    case "HighLowInt":
+                        Ans.sort(function (a, b) {
+                            return b[0] - a[0];
+                        });
+                        break;
+                    case "LowHighIteration":
+                        Ans.sort(function (a, b) {
+                            return a[1] - b[1];
+                        });
+                        break;
+                    case "HighLowIteration":
+                        Ans.sort(function (a, b) {
+                            return b[1] - a[1];
+                        });
+                        break;
+                }
+                for(var i = 0; i < 1000; i++) {
+                    tempTable.push(Ans[i][5]);
+                }
+                document.getElementById("Happy").innerHTML = tempTable;
+            }
+            
+            var Number = function(Nr) {
+                this.Nr = Nr;
+                this.Iteration = 0;
+                this.HappyNumber = false;
+                this.Tempnr = this.Nr;
+                this.Added = false;
+                this.Answer = "";
+                return [this.Nr, this.Iteration, this.Tempnr, this.HappyNumber, this.Added, this.Answer];
+            }
+
+        </script>
+    </head>
+    <body>
+        Range :<span style="color: grey;">(1 - <input id="inpRange" type="number" style="width: 100px;" oninput="qualityCheck(1)" />)</span> <span id="spanQual1" style="color: red;"></span>
+        <br />
+        <span style="color: grey;">Program will find all happy numbers inbetween the set range</span>
+        <br />
+        <br />
+        Timeout :<span style="color: grey;">Prevents computer from utilizing full processing power (might be nessesary for not crashing)</span>
+        <input id="inpTime" type="number" oninput="qualityCheck(2)" />(ms)
+        <br />
+        <br />
+        <span>Time spent: </span><span id="spanTime" style="font-size: 30px;">0</span>&nbsp;<span>(seconds)</span> &nbsp;&nbsp; <span>Iterations: </span><span id="spanIteration" style="font-size: 30px;">0</span>
+        <br />
+        <br />
+        <input id="btnStart" type="button" value="Start" onclick="hub('timeStart'), hub('calStart')" />
+        <input id="btnStop" type="button" value="Stop" onclick="hub('timeStop')" />
+        <input id="btnReset" type="button" value="Reset" onclick="hub('Reset')" />
+        <br />
+        <br />
+        <fieldset style="width: 800px; min-height: 100px;">
+            <legend>Calculated Happy Numbers: (Presented as 'Number(iterations needed to calculate)' Sorting: <select id="Select" onchange="hub('selection',this.value)"><option value="LowHighInt" selected="selected">Low-High int</option><option value="HighLowInt">High-Low int</option><option value="LowHighIteration">Low-High iterations</option><option value="HighLowIteration">High-Low iterations</option></select> <input id="btnShow" type="button" value="Show" onclick="btnShow_onclick()" /></legend>
+            <label><span id="Happy" style="font-size: 25px;"></span></label>
+        </fieldset>
+    </body>
+</html>

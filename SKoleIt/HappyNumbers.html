@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <script>
+            var timeInterval;
+            var timeSpent = 0;
+            var Cal = []; //[initial number][calculation interation][temporary calculation]
+            var Ans = [];
+            var time;
+            var timeTemp;
+            
+            function qualityCheck(inp){
+                switch(inp) {
+                    case 1:
+                        if(document.getElementById("inpRange").valueAsNumber < 1)
+                            document.getElementById("spanQual1").innerHTML = "Range-top needs to be a positiv integer";
+                        else
+                            document.getElementById("spanQual1").innerHTML = "";
+                }
+            }
+            function hub(value){
+                switch(value) {
+                    case "timeStart":
+                        time = Date.now();
+                        timeStart = setInterval("hub('timeAdvance')", 1000);
+                        break;
+                    case "timeStop":
+                        clearInterval(timeStart);
+                        break;
+                    case "timeAdvance":
+                        timeTemp = Date.now();
+                        var woops = timeTemp - time;
+                        woops = woops / 1000;
+                        timeSpent = Math.floor(woops);
+                        break;
+                    case "Reset": //MORE SHIIT NEEDS TO BE HERE
+                        timeSpent = 0;
+                        break;
+                    case "calStart":
+                        calculation();
+                        break;
+                }
+                document.getElementById("spanTime").innerHTML = timeSpent;
+            }
+            function calculation() {
+                var rangeTop = document.getElementById("inpRange").value;
+                var timeout = document.getElementById("inpRange").value;
+                for(var i = 1; i <= rangeTop; i++) {
+                    Cal[i] = new Number(rangeTop);
+                }
+            }
+            var Number = function(Nr) {
+                this.Timeout = setInterval(this.Calculation, 3000)
+                this.Nr = Nr;
+                this.Iteration = 0;
+                this.HappyNumber = false;
+                this.TempNr = this.Nr;
+                this.TempCal = 0;
+                this.NewNr = 0;
+                this.Calculation = function() {
+                    var Length = this.TempNr.toString().length;
+                    for(i = 0; i < Length; i++) {
+                        var c = this.TempCal.toString();
+                        var v = c.substr(i,1);
+                        this.TempCal = c * c;
+                        this.NewNr += this.TempCal;
+                    }
+                    this.TempNr = this.NewNr;
+                    this.Iteration ++;
+                    this.NewNr = 0;
+                    if(this.TempNr == 1) {
+                        this.HappyNumber = true;
+                        Cal[this.Nr] = [this.Nr, this.Iteration, this.HappyNumber]
+                    }
+                    else
+                        Ans.push(Cal[this.Nr, this.Iteration, this.HappyNumber]);
+                }   
+            }
+        </script>
+    </head>
+    <body>
+        Range :<span style="color: grey;">(1 - <input id="inpRange" type="number" style="width: 100px;" oninput="qualityCheck(1)" />)</span> <span id="spanQual1" style="color: red;"></span>
+        <br />
+        <span style="color: grey;">Program will find all happy numbers inbetween the set range</span>
+        <br />
+        <br />
+        Timeout :<span style="color: grey;">Prevents computer from utilizing full processing power (might be nessesary for not crashing)</span>
+        <input id="inpTime" type="number" oninput="qualityCheck(2)" />(ms)
+        <br />
+        <br />
+        <span>Time spent: </span><span id="spanTime" style="font-size: 30px;">0</span>&nbsp;<span>(seconds)</span> 
+        <br />
+        <br />
+        <input id="btnStart" type="button" value="Start" onclick="hub('timeStart'), hub('calStart')" />
+        <input id="btnStop" type="button" value="Stop" onclick="hub('timeStop')" />
+        <input id="btnReset" type="button" value="Reset" onclick="hub('Reset')" />
+        <br />
+        <br />
+        <fieldset style="width: 600px; min-height: 100px;">
+            <legend>Calculated Happy Numbers: (Presented as 'Number(iterations to calculate)'</legend>
+            <label><span id="Happy" style="font-size: 30px;"></span></label>
+        </fieldset>
+    </body>
+</html>

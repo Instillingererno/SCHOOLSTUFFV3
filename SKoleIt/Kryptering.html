@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <script>
+            var 
+            function Encrypt() {
+                var Message = document.getElementById("inpMessage").value;
+                var Code = document.getElementById("inpCode").value;
+                var alfabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","1","2","3","4","5","6","7","8","9"];
+                for(var i = 0; i < Message.length; i++) {
+                    var temp = Message.substr(i,1);
+                    for(var j = 0; j < alfabet.length; j++) {
+                        
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        Enter message to encrypt: <input id="inpMessage" type="text" />
+        <br />
+        <br />
+        Enter keycode: <input id="inpCode" type="text" />
+        <br />
+        <br />
+        <input id="btnUtfor" type="button" value="Encrypt" onclick="Encrypt()" />
+        <br />
+        <br />
+        <br />
+        Result: <span id="result"></span>
+    </body>
+</html>
