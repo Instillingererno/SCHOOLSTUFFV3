@@ -1,0 +1,171 @@
+<html>
+
+<head>
+    <script>
+        
+        //document.getElementById("Uker").options[document.getElementById("Uker").selectedIndex].value
+        var tempTab;
+        window.onload = function() {
+            try {
+                tmpTab = JSON.parse(localStorage.getItem("Bestillinger"));
+                for (var i = 0; i < tmpTab.length; i++) {
+                    Bestillingstabell.push(new Bestilling(tmpTab[i].Ukenr, tmpTab[i].Middager, tmpTab[i].Barn, tmpTab[i].Ungdom, tmpTab[i].Voksne));
+                }
+                Bestillingstabell.utskrift();
+            } catch (e) {
+                Bestillingstabell.push(new Bestilling(26,2,1,1,2));
+                Bestillingstabell.push(new Bestilling(26,3,0,2,2));
+                Bestillingstabell.push(new Bestilling(26,2,0,0,1));
+                Bestillingstabell.push(new Bestilling(26,3,0,0,2));
+                Bestillingstabell.push(new Bestilling(26,2,3,0,2));
+                Bestillingstabell.push(new Bestilling(27,2,1,1,2));
+                Bestillingstabell.push(new Bestilling(27,2,1,1,2));
+                Bestillingstabell.utskrift();
+            }
+            let tekst = "";
+            for(var i = 0; i < Object.keys(Middager).length; i++) {
+                tekst += "<option value=" + Object.keys(Middager)[i] + ">" + Object.keys(Middager)[i] + "</option>";
+            }
+            document.getElementById("Uker").innerHTML = tekst;
+        }
+        
+        var Raavaretabell = [
+            //           Torsk   Sei   Makrell   Reker   Krabbe   Laks
+            /*Barn*/    [200,    200,  200,      250,    300,     200],
+            /*Ungdom*/  [300,    300,  300,      500,    500,     300],
+            /*Voksne*/  [350,    350,  350,      500,    600,     350]
+        ]
+
+        var Fiskindeks = {
+            "Torsk": 0,
+            "Sei": 1,
+            "Makrell": 2,
+            "Reker": 3,
+            "Krabbe": 4,
+            "Laks": 5
+        }
+
+        var Behov = { //i gram til hver middag
+            "Uke": 0,
+            "Middag0": 0,
+            "Middag1": 0,
+            "Middag2": 0
+        }
+        Behov.reset = function() {
+            this.Uke = 0;
+            this.Middag0 = 0;
+            this.Middag1 = 0;
+            this.Middag2 = 0;
+        }
+        Behov.utskrift = function() {
+            if(this.Uke > 0) {
+                let tekst = "";
+                tekst += "For uke: " + this.Uke; + " (gitt i gram)";
+                tekst += "<br />" + Middager[this.Uke].Middag0 + " : " + this.Middag0 + "<br />";
+                tekst += Middager[this.Uke].Middag1 + " : " + this.Middag1 + "<br />";
+                tekst += Middager[this.Uke].Middag2 + " : " + this.Middag2;    
+                document.getElementById("pBehov").innerHTML = tekst;
+            } else
+                alert("Ingen uke er valgt");
+        }
+
+        var Middager = {
+            "26": {
+                "Middag0": "Krabbe",
+                "Middag1": "Torsk",
+                "Middag2": "Laks"
+            },
+            "27": {
+                "Middag0" : "Krabbe",
+                "Middag1" : "Reker",
+                "Middag2" : "Makrell"
+            }
+        }
+
+        class Bestilling {
+            constructor(ukenr, middager, barn, ungdom, voksne) {
+                this.Ukenr = ukenr;
+                this.Middager = middager;
+                this.Barn = barn;
+                this.Ungdom = ungdom;
+                this.Voksne = voksne;
+            }
+        }
+
+        var Bestillingstabell = [];
+
+        Bestillingstabell.utskrift = function() {
+            if (Bestillingstabell.length > 0) {
+                let tekst = "";
+                tekst += "<table>";
+                tekst += "<tr>";
+                for (let i = 0; i < Object.keys(Bestillingstabell[0]).length; i++) {
+                    tekst += "<td>" + Object.keys(Bestillingstabell[0])[i] + "</td>";
+                }
+                tekst += "</tr>";
+                for (let i = 0; i < Bestillingstabell.length; i++) {
+                    tekst += "<tr>";
+                    tekst += "<td>" + Bestillingstabell[i].Ukenr + "</td>";
+                    tekst += "<td>" + Bestillingstabell[i].Middager + "</td>";
+                    tekst += "<td>" + Bestillingstabell[i].Barn + "</td>";
+                    tekst += "<td>" + Bestillingstabell[i].Ungdom + "</td>";
+                    tekst += "<td>" + Bestillingstabell[i].Voksne + "</td>";
+                    tekst += "</tr>";
+                }
+                tekst += "<tr><td><input id='inpUke' type='number' /></td><td><input id='inpMiddager' type='number' /></td><td><input id='inpBarn' type='number' /></td><td><input id='inpUngdom' type='number' /></td><td><input id='inpVoksne' type='number'</td></tr>"
+                tekst += "</table>";
+                document.getElementById("pBestillingstabell").innerHTML = tekst;
+            } else
+                alert("Det er ingen bestillinger enda");
+        }
+        
+
+        Bestillingstabell.behov = function(ukenr) {
+            Behov.reset();
+            Behov.Uke = ukenr;
+            for (var i = 0; i < this.length; i++) {
+                if (Bestillingstabell[i].Ukenr == Behov.Uke) {
+                    for (var j = 0; j < Bestillingstabell[i].Middager; j++) {
+                        Behov["Middag" + j] += Raavaretabell[0][Fiskindeks[Middager[ukenr]["Middag" + j]]] * Bestillingstabell[i].Barn;
+                        Behov["Middag" + j] += Raavaretabell[1][Fiskindeks[Middager[ukenr]["Middag" + j]]] * Bestillingstabell[i].Ungdom;
+                        Behov["Middag" + j] += Raavaretabell[2][Fiskindeks[Middager[ukenr]["Middag" + j]]] * Bestillingstabell[i].Voksne;
+                    }
+                }
+            }
+            Behov.utskrift();
+        }
+        
+        Bestillingstabell.sjekk = function() {
+            if(document.getElementById("inpUke").value > 0 && document.getElementById("inpMiddager").value > 0 && document.getElementById("inpBarn").value > 0 && document.getElementById("inpUngdom").value && document.getElementById("inpVoksne").value > 0)
+                return true;
+            else {
+                alert("En eller flere av feltene er ikke fylt inn, eller har en verdi under 0; Noe som ikke er mulig");
+                return false;
+            }
+        }
+        
+        Bestillingstabell.ny = function() {
+            if(this.sjekk()) {
+                Bestillingstabell.push(new Bestilling(document.getElementById("inpUke").value, document.getElementById("inpMiddager").value, document.getElementById("inpBarn").value, document.getElementById("inpUngdom").value, document.getElementById("inpVoksne").value));
+                Bestillingstabell.utskrift();
+            }
+            if(typeof (Storage) !== "undefined") {
+                localStorage.setItem("Bestillinger", JSON.stringify(Bestillingstabell));
+            } else {
+                alert("Nettleseren du bruker har ikke støtte for lagring av filer. Vennligst bytt nettleser");
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>Bestillinger</h1>
+    <p id="pBestillingstabell"></p>
+    <input id="btnNy" type="button" value="Ny bestilling" onclick="Bestillingstabell.ny()" />
+    <br />
+    Velg uke for behov: <select id="Uker"></select> <input id="btnBehov" type="button" value="Regn ut" onclick="Bestillingstabell.behov(document.getElementById('Uker').options[document.getElementById('Uker').selectedIndex].value)" />
+    <p id="pBehov"></p>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<html>
+
+<head>
+    <script>
+        var Prisklasser = {
+            "PrisSkift" : 5,
+            "Redusert" : 70,
+            "Vanlig" : 80
+        }
+        var Matkasse = {
+            "Middager" : 0,
+            "Antall" : 0,
+            "Navn" : "",
+            "Adresse" : "",
+            "Pris" : function() {
+                if(this.Antall >= Prisklasser.PrisSkift) 
+                    return this.Middager * this.Antall * Prisklasser.Redusert;
+                else
+                    return this.Middager * this.Antall * Prisklasser.Vanlig;
+            }
+        }
+        Matkasse.update = function() {
+            this.Middager = document.querySelector("input[name='valg']:checked").value;
+            this.Antall = document.getElementById("inpAntall").value;
+            this.Navn = document.getElementById("inpNavn").value;
+            this.Adresse = document.getElementById("inpAdresse").value;
+            this.utskrift();
+        }
+        Matkasse.sjekk = function() {
+            if(this.Antall > 15) {
+                alert("Kanskje litt vel mange! Dette er ikke til bedrifter");
+                document.getElementById("inpAntall").value = 15;
+            }
+            else if(this.Antall < 0) {
+                alert("Det er statistisk veldig usannsynlig at familien din består av mindre enn 0 personer");
+                document.getElementById("inpAntall").value = 0;
+            }
+            this.update();
+        }
+        Matkasse.utskrift = function() {
+            let tekst = "Middager per person: " + this.Middager + "<br />Antall personer: " + this.Antall + "<br />Bestillers navn: " + this.Navn + "<br />Leveringsadresse: " + this.Adresse + "<br />Total pris (eksludert postkostnader): " + this.Pris();
+            document.getElementById("pMelding").innerHTML = tekst;
+        }
+        var Bilder = {
+            "2" : "link til bilde 1",
+            "3" : "link til bilde 2"
+        }
+    </script>
+</head>
+
+<body onload="Matkasse.utskrift()">
+    To middager per person: <input type="radio" name="valg" value="2" onchange="Matkasse.update()" />
+    <br />
+    Tre middager per person: <input type="radio" name="valg" value="3" onchange="Matkasse.update()" />
+    <br />
+    <br />
+    Antall personer: <input id="inpAntall" type="number" oninput="Matkasse.update()" onchange="Matkasse.sjekk()" />
+    <br />
+    <br />
+    Navn: <input id="inpNavn" type="text" oninput="Matkasse.update()" />
+    <br />
+    <br />
+    Adresse: <input id="inpAdresse" type="text" oninput="Matkasse.update()" /> i format lik: "Gatenavn Husnummer, Postkode Bynavn"
+    <br />
+    <br />
+    <br />
+    <p id="pMelding"></p>
+</body>
+
+</html>
