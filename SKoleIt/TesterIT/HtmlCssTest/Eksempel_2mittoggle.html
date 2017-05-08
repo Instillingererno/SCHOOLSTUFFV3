@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eksempel_2</title>
+    <meta charset="utf-8" />
+    <script>
+        var Toggle = false;
+        function btnUtfor_onclick()
+        {
+            if (Toggle == false)
+                {
+                    document.getElementById("pMelding").innerHTML = "Gratulerer, du er nå en programerer";
+                    Toggle = true;
+                }
+            else 
+                {
+                    document.getElementById("pMelding").innerHTML = "";
+                    Toggle = false;
+                }
+        }
+    </script>
+</head>
+<body>
+    <input id="btnUtfor" type="button" value="Trykk meg" onclick="btnUtfor_onclick()" />
+    <p id="pMelding"></p>
+</body>    
+</html>

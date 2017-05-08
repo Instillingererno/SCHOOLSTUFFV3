@@ -1,0 +1,11 @@
+E:\IT\VG3\MVC\Gjennomgang\Gjennomgang\bin\Debug\netcoreapp1.1\Microsoft.DiaSymReader.Native.x86.dll
+E:\IT\VG3\MVC\Gjennomgang\Gjennomgang\bin\Debug\netcoreapp1.1\Microsoft.DiaSymReader.Native.amd64.dll
+E:\IT\VG3\MVC\Gjennomgang\Gjennomgang\bin\Debug\netcoreapp1.1\Gjennomgang.deps.json
+E:\IT\VG3\MVC\Gjennomgang\Gjennomgang\bin\Debug\netcoreapp1.1\Gjennomgang.runtimeconfig.json
+E:\IT\VG3\MVC\Gjennomgang\Gjennomgang\bin\Debug\netcoreapp1.1\Gjennomgang.runtimeconfig.dev.json
+E:\IT\VG3\MVC\Gjennomgang\Gjennomgang\bin\Debug\netcoreapp1.1\Gjennomgang.dll
+E:\IT\VG3\MVC\Gjennomgang\Gjennomgang\bin\Debug\netcoreapp1.1\Gjennomgang.pdb
+E:\IT\VG3\MVC\Gjennomgang\Gjennomgang\obj\Debug\netcoreapp1.1\Gjennomgang.csprojResolveAssemblyReference.cache
+E:\IT\VG3\MVC\Gjennomgang\Gjennomgang\obj\Debug\netcoreapp1.1\Gjennomgang.AssemblyInfo.cs
+E:\IT\VG3\MVC\Gjennomgang\Gjennomgang\obj\Debug\netcoreapp1.1\Gjennomgang.dll
+E:\IT\VG3\MVC\Gjennomgang\Gjennomgang\obj\Debug\netcoreapp1.1\Gjennomgang.pdb

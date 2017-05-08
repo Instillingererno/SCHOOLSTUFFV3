@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>...</title>
+        <script>
+            function RegnUt() 
+            {
+                var Dato = document.getElementById("Fødselsdato").date;
+                var NyDato = Date();
+                document.getElementById("Resultat") = NyDato - Dato;
+            }
+        </script>
+    </head>
+    <body>
+        <span>Velg fødselsdato:</span>
+        <input id="Fødselsdato" type="date" onchange="RegnUt()" />
+        <p id="Resultat"></p>
+    </body>
+</html> 

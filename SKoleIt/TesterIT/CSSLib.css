@@ -1,0 +1,18 @@
+#Midt {
+    margin: 0 auto;
+}
+table, td, th {
+    text-align: left;
+}
+table {
+    border-collapse: collapse;
+    width: 400px;
+}
+th, td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: #4CAF50;
+    color: white;
+}

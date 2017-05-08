@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <title>Primtall</title>
+        
+        <meta charset="utf-8">
+        <meta name="description" content="" />
+        <script>
+            function btnUtfor_onclick() {
+                
+                var Ovre = document.getElementById("inpOvre").valueAsNumber;
+                var Tekst = "";
+                
+                for (var i = 2; i <= Ovre; i++) {
+                    var Prime = true;
+                    for (var j= 2; j <= i; j++) {
+                        if (i % j === 0 && i != j)
+                            Prime = false
+                    }
+                    if (Prime === true)
+                        Tekst += i + ", "
+                }
+                
+                document.getElementById("pMelding").innerHTML = Tekst;
+                
+                
+                /*var Ovre = document.getElementById("inpOvre").valueAsNumber;
+                var Tekst = "";
+                for (var i = 1;i <= Ovre;i++) {
+                    for (var j = 1;j < i; j++) {
+                        var prime = true;
+                        for (var n = 1; n < i; n++) {
+                            var res = 0;
+                            res = j * n;
+                            if (res == i) {
+                                prime = false;
+                                break;
+                            }
+                            else
+                                prime = true;
+                        }
+                    }
+                    if (prime == true)
+                        Tekst += i + ", ";
+                    else
+                        Tekst += "";
+                }
+                document.getElementById("pMelding").innerHTML = Tekst;*/
+            }
+            
+            /*var AntallMynt = 0;
+            var AntallKron = 0;
+            function btnUtfor_onclick() {
+                var Antall = document.getElementById("inpAntall").valueAsNumber;
+                var Tekst = "";
+                for (var i = 1;i <= Antall;i++) {
+                    var Utfall = "";
+                    var Tilfeldig = Math.random();
+                    if (Tilfeldig > 0.5) {
+                        Utfall = "Kron";
+                        AntallKron ++;
+                    }
+                    else {
+                        Utfall = "Mynt";
+                        AntallMynt ++;
+                    }
+                    Tekst += "Kast nr " + i + ", resultat = " + Utfall + "<br />";
+                }
+                var KronProsent = (Math.round(( AntallKron / (AntallMynt + AntallKron) ) * 1000000000000)) / 10000000000; //(AntallKron / (AntallMynt + AntallKron)) * 100; 
+                document.getElementById("pMelding").innerHTML = Tekst;
+                document.getElementById("pAntall").innerHTML = AntallMynt + " Mynt, " + AntallKron + " Kron. Sjangsen for kron er: " + KronProsent + "%";
+            }*/
+        </script>
+    </head>
+    
+    <body>
+        <div id="Ramme" style="width: 500px; margin: 0 auto;">
+            <h1>Primtall</h1>
+            <p>Primtall er alle tall som ikke kan deles på annet enn 1 og seg selv uten å etterlate en rest. Applikasjonen beregner alle primtall mellom 1 og det tallet du skriver inn.</p>
+            <br />
+            <br />
+            <span>Øvre verdi:</span> &nbsp;&nbsp;
+            <input id="inpOvre" type='number'> &nbsp;&nbsp;
+            <input id="btnUtfor" type='button' value="Utfør" onclick="btnUtfor_onclick()">
+            <br />
+            <br />
+            <p id="pMelding"></p>
+        </div>
+    </body>
+</html>

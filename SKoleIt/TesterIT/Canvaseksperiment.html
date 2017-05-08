@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <script>
+            //Global variables
+            var w = 10; //length of box size
+            var row = 40; //number of rows
+            var col = 40; //number of coloms
+            var ctx;
+            var current;
+                //Components for simulation
+            var grid = [];
+            //
+            
+            //Functions
+            function startGame() {
+                myGameArea.start();
+            }
+            function updateGameArea() {
+                //myGameArea.clear();
+                //Update components
+                //something.draw();
+            }
+            function cell(i, j) {
+                this.i = i;
+                this.j = j;
+                this.show = function() {
+                    var y = this.j*w;
+                    var x = this.i*w;
+                    ctx = this.getContext("2d");
+                    ctx.fillStyle = "#FF0000";
+                    ctx.rect(x, y, w, w); //(StartX,StartY,EndX,EndY)
+                    ctx.stroke();
+                }
+            }
+            function draw() {
+                for(var i = 0; i < grid.lenght; i++) {
+                    grid[i].show();
+                }
+            }
+            //
+            
+            //Special variables, like myGameArea
+                //Why is myGameArea a variable and not a function?
+            var myGameArea = {
+                canvas : document.createElement("canvas"),
+                start : function() {
+                    this.canvas.width = w * row;
+                    this.canvas.height = w * col;
+                    this.context = this.canvas.getContext("2d");
+                    document.body.insertBefore(this.canvas, document.body.childNodes[0])
+                    //this.interval = setInterval(updateGameArea, 20);
+                    
+                    for(var j = 0; j < row; j++) {
+                        for(var i = 0; i < col; i++) {
+                            var Cell = new cell(i, j);
+                            grid.push(Cell);
+                        }
+                    }
+                    current = grid[0];
+                    this.draw();
+                },
+                stop : function() {
+                    clearInterval(this.interval);
+                },
+                clear : function() {
+                    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                }
+                
+            }
+            //
+            
+        </script>
+        <style>
+            canvas {
+                border: 1px solid #d3d3d3;
+                background-color: #f1f1f1;
+            }
+        </style>
+    </head>
+    <body onload="startGame()">
+        
+        
+    </body>
+</html>

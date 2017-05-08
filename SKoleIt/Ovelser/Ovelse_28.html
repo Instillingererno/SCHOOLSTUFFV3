@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Øvelse 27</title>
+    <script>
+        function btnUtfor_onclick() {
+            var inpTekst = document.getElementById("inpTekst").value;
+            var Antall = inpTekst.length;
+            var Tekst = "";
+            var Bokstav = inpTekst.substr(0,1)
+            Tekst += Bokstav.toUpperCase();
+            for (i = 1; i <= Antall; i++) {
+                var Bokstav = inpTekst.substr(i,1);
+                if (Bokstav == " ") {
+                    i ++;
+                    Bokstav = inpTekst.substr(i,1);
+                    Tekst += " " + Bokstav.toUpperCase();
+                }
+                else
+                    Tekst += Bokstav.toLowerCase();
+            }
+            document.getElementById("pMelding").innerHTML = Tekst;
+        }
+    </script>
+</head>
+<body>
+    <input id="inpTekst" type="text">
+    <input id="btnUtfor" type="button" value="Utfør" onclick="btnUtfor_onclick()">
+    <br>
+    <p id="pMelding"></p>
+</body></html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>...</title>
+        <script>
+            function btnUtfor_onclick() {
+                var Bokstav = document.getElementById("inpOrd").value;
+                var Ant = Bokstav.length;
+                var Tekst = "";
+                for (var i = Ant - 1; i >= 0; i--) {
+                    Tekst += Bokstav.substr(i,1);
+                }
+                document.getElementById("pMelding").innerHTML = Tekst;
+            }
+        </script>
+    </head> 
+    <body>
+        <input id="inpOrd" type="text">
+        <input id="btnUtfor" type="button" value="Utfør" onclick="btnUtfor_onclick()">
+        <p id="pMelding"></p>
+    </body>
+</html>

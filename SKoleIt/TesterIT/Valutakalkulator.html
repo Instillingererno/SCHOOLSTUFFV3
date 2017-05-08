@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+    <head>
+    
+                                <!--Valutakalkulator-->
+        <title>Valutakalkulator</title>
+        <meta charset="utf-8" />
+        <style>
+            body {
+                background-color: lightblue;
+            }
+        </style>
+        <script>
+            var nok, eurm, dkkm, usdm, gbpm, sekm;
+                nok = document.getElementById("nokInp").value;
+                eurm = nok*0.107897628;
+                dkkm = nok*0.803531157;
+                usdm = nok*0.120786;
+                gbpm = nok*0.0919398668;
+                sekm = nok*1.02481737;
+                var sum;
+                var text;
+            function calcBtn_onclick()
+            {
+                
+                    switch(text) {
+                        case "usd":
+                            sum = usdm;
+                            break;
+                        case "sek":
+                            sum = sekm;
+                            break;
+                        case "gbp":
+                            sum = gbpm;
+                            break;
+                        case "dkk":
+                            sum = dkkm;
+                            break;
+                        case "eur":
+                            sum = eurm;
+                            break;
+                        case "USD":
+                            sum = usdm;
+                            break;
+                        case "SEK":
+                            sum = sekm;
+                            break;
+                        case "GBP":
+                            sum = gbpm;
+                            break;
+                        case "DKK":
+                            sum = dkkm;
+                            break;
+                        case "EUR":
+                            sum = eurm;
+                            break;
+                        default:
+                           text = "0";
+                }
+                document.getElementById("output").innerHTML = sum;
+
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Regn ut valuta</h1>
+      <table style="width:500px">
+  <tr>
+    <th align=left><input id="nokInp" type="text" value="NOK"/>= </th>
+    <th alight=left><p id="output"></p></th>
+    <th align=left><input id="valgBtn" type="button" value="Velg valuta" onclick="valgBtn_onclick()"/></th>
+  </tr>
+  <tr>
+    <td><input id="calcBtn" type="button" value="Regn ut" onclick="calcBtn_onclick()"/></td>
+  </tr>
+  <tr>
+    <td><input id="nyBtn" type="button" value="Ny utregning"/></td>
+  </tr>
+</table>
+        <script>
+            function valgBtn_onclick()
+            {
+                var valuta = prompt("velg valuta", "usd");
+                switch(valuta) {
+                    case "usd":
+                        text = "USD";
+                    break;
+                    case "sek":
+                        text = "SEK";
+                    break;
+                    case "gbp":
+                        text = "GBP";
+                    break;
+                    case "dkk":
+                        text = "DKK";
+                    break;
+                    case "eur":
+                        text = "EUR";
+                    break;
+                         case "USD":
+                        text = "USD";
+                    break;
+                    case "SEK":
+                        text = "SEK";
+                    break;
+                    case "GBP":
+                        text = "GBP";
+                    break;
+                    case "DKK":
+                        text = "DKK";
+                    break;
+                    case "EUR":
+                        text = "EUR";
+                    break;
+                    default:
+                        text="Ugyldig valuta";
+                }
+                document.getElementById("valgBtn").value = text;
+            }
+
+        </script>
+        
+
+    </body>
+</html>

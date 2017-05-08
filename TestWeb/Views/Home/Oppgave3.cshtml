@@ -1,0 +1,37 @@
+<script>
+    document.getElementById("a3").setAttribute("class", "active");
+    window.onload = setTimeout("oppgave3Load()", 100);
+</script>
+<div id="resultat">
+    <h2>Reise kostnad</h2>
+    By: <span id="resBy"></span>
+    <br />
+    Hotel: <span id="resHotel"></span>
+    <br />
+    Antall dager: <span id="resDager"></span>
+    <br />
+    Reiseperiode: <span id="resReiseperiode"></span>
+    <br />
+    Dobbeltrom: <span id="resDRom"></span>
+    <br />
+    Enkeltrom: <span id="resERom"></span>
+    <br />
+    Kulturpass: <span id="resPass"></span>
+    <br />
+    Sum: <span id="resSum"></span>
+</div>
+<div id="valg">
+    Dato: <br />
+    &nbsp;&nbsp; Fra: <input type="date" onchange="endre('datoFra',this.value)" /><br />
+    &nbsp;&nbsp; Antall dager: <input type="number" onchange="endre('antDag',this.value)" />
+    <br />
+    Rom: <br />
+    &nbsp;&nbsp; Dobbeltrom: <input type="number" onchange="endre('romD',this.value)" /><br /> 
+    &nbsp;&nbsp; Enkeltrom: <input type="number" onchange="endre('romE',this.value)" />
+    <br />
+    kulturpass for kulturelle aktiviteter (pris kr 700): <input id="inpPass" type="checkbox" onclick="endre('kultpass')" />
+    <br />
+    By: <select id="by" onchange=hotelLoad()></select>
+    <br />
+</div>
+<div id="hoteller"></div>

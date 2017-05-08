@@ -1,0 +1,240 @@
+<html>
+    <head>
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+        
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        
+        <script src="Javascript.js"></script>
+        
+        <script>
+            var table = [];
+            var amount = 10;
+            var NotesNr = 0;
+            
+            function textAreaAdjust(o) {
+                o.style.height = "1px";
+                o.style.height = (o.scrollHeight)+"px";
+            }
+
+            function amountIncrease() {
+                amount += 10;
+                update();
+            }
+            function storage() {
+                NotesNr = JSON.parse(localStorage.getItem("nr"));
+                for(var i = 0; i <= NotesNr; i++) {
+                    if(localStorage.getItem(i) != null)
+                        table.push(JSON.parse(localStorage.getItem(i)));
+                    else
+                        continue;
+                }
+                update();
+            }
+            function colorpicker() {
+                var nr = Math.floor(Math.random() * 6) + 1;
+                switch (nr) {
+                    case 1:
+                        return '#90CAF9';
+                        break;
+                    case 2:
+                        return  '#80CBC4';
+                        break;
+                    case 3:
+                        return '#A5D6A7';
+                        break;
+                    case 4:
+                        return '#FFF59D';
+                        break;
+                    case 5:
+                        return '#BCAAA4';
+                        break;
+                    case 6:
+                        return '#B0BEC5';
+                        break;
+                }
+            }
+            function save(id) {
+                var i = parseInt(id.substr(0,1));
+                var wut = idNr(id);
+                var text;
+                if (id.substr(wut,5) == "_text") {
+                    text = document.getElementById(id).value;
+                    table[i][2] = text;
+                }
+                else {
+                    text = document.getElementById(id).value;
+                    table[i][3] = text;
+                }
+                if (typeof (Storage) !== "undefined") {
+                    localStorage.setItem(i, JSON.stringify(table[i]));
+                    if (NotesNr <= i)
+                        NotesNr = i;
+                    localStorage.setItem("nr", JSON.stringify(NotesNr));
+                }
+                else {
+                    alert("Your browser does not support file saving, please switch browser to utilize the website.")
+                }
+            }
+            function delNote(id) {
+                table.pop(id);
+                localStorage.removeItem(id-1);
+                update();
+            }
+            function idNr(id) {
+                var idNr = 0;
+                for(var i = 0; i < amount; i++) {
+                    if(id.substr(i,1) == "_")
+                        break;
+                    else
+                        idNr += 1;
+                }
+                return idNr;
+            }
+            function draw(date, type, text, tittel, i, color) {
+                var nr = table.length - i;
+                switch(type) {
+                    case 1:
+                        document.getElementById("main").innerHTML += "<div class='note' style='background-color:" + color + ";'>"
+                        + "<input id='" + nr + "_tittel" + "' class='tittel' type='text' value='" + tittel + "' onkeyup='save(this.id)'/>"
+                        + "<button type='button' class='tittel' onclick='delNote(" + nr +")'>X</button>"
+                        + "<br />"
+                        + "<textarea id='" + nr + "_text" + "' class='text' onkeyup='textAreaAdjust(this), save(this.id)'>" + text + "</textarea>"
+                        + "<p class='date'>" + "Week: " + date + "</p>"
+                        + "</div>";
+                }
+            }
+            function newNote() {
+                var week = new Date().format('W');
+                amount += 1;
+                table.push([]);
+                table[table.length-1][0] = week;
+                table[table.length-1][1] = 1;
+                table[table.length-1][2] = "";
+                table[table.length-1][3] = "";
+                table[table.length-1][4] = colorpicker();
+                localStorage.setItem(table.length - 1, JSON.stringify(table[table.length - 1]));
+                if (NotesNr <= table.length - 1)
+                        NotesNr = table.length - 1;
+                    localStorage.setItem("nr", JSON.stringify(NotesNr));
+                update();
+            }
+            function update() {
+                document.getElementById("main").innerHTML = "";
+                for(var i = 1; i <= amount; i++) {
+                    var date = table[table.length - i][0];
+                    var type = table[table.length - i][1];
+                    var text = table[table.length - i][2];
+                    var tittel = table[table.length - i][3];
+                    var color = table[table.length - i][4]
+                    draw(date, type, text, tittel, i, color);
+                }
+            }
+        </script>
+        <style>
+            body {
+                background-color: #f1f1f1;
+                padding: 0;
+                margin: 0;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+            }
+            h1 {
+                margin: 0;
+                line-height: 52px;
+                font-size: 52px;
+                float: left;
+                color: darkblue;
+            }
+            #menu {
+                width: 100% - 32px;
+                height: 52px;
+                background-color: #fff;
+                padding: 16px;
+                border-bottom: groove 5px #adbace;
+            }
+            #main {
+                width: 100% - 32px;
+                padding: 16px;
+                min-height: 200px;
+            }
+            img {
+                float: right;
+                width: 52px;
+                height: 52px;
+            }
+            .note {
+                width: 550px;
+                min-height: 200px;
+                float: left;
+                margin: 20px;
+                border: ridge 2px orange;
+                padding: 10px;
+                overflow: auto;
+            }
+            #btnOpp {
+                float: right;
+            }
+            #btnNy {
+                float: right;
+            }
+            .date {
+                color: grey;
+                font-style: italic;
+                margin: 0;
+            }
+            input[type=text], textarea, button{
+                background-color: transparent;
+                border: none;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                font-size: 20px;
+                width: 80%;
+                outline: none;
+            }
+            button {
+                width: 20%!important;
+                float: right;
+            }
+            textarea {
+                resize: none;
+                height: auto;
+                min-height: 120px;
+                overflow: hidden;
+                margin-bottom: 10px;
+                width: 100%!important;
+            }
+            input[type=text]:focus, textarea:focus, button:hover {
+                background-color: burlywood;
+            }
+            .tittel {
+                font-size: 40px!important;
+                margin-bottom: 10px;
+                padding-bottom: 10px;
+                border-bottom: solid 1px #696969!important;
+            }
+            
+            @media only screen and (max-device-width: 645px) {
+                .note {
+                    width: auto;
+                    min-height: 200px;
+                    float: left;
+                    background-color: aqua;
+                    margin: 0;
+                    margin-bottom: 20px;
+                }
+                #main {
+                    padding: 0;
+                }
+            }
+        </style>
+    </head>
+    <body onload="storage(), update()">
+        <div id="menu">
+            <h1>Notes</h1>
+            <img src="pluss.png" alt="+" onclick="newNote()" />
+            <img src="neste.png" alt=">" onclick="amountIncrease()" />
+        </div> 
+        <div id="main">
+        </div>
+    </body>
+</html>

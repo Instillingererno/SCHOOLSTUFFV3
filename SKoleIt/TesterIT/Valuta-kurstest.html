@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wut</title>
+    <meta charset="utf-8" />
+    <script>
+        var inpVerdi = document.getElementById("inpVerdi").value;
+        var Melding = document.getElementById("Melding").innerHTML;
+        function regnValuta()
+        {
+            var Valuta = document.getElementById("VALUTA");
+            var wut = (Valuta.options[Valuta.selectedIndex].value);
+            if (wut == "NOK") {
+                document.getElementById("Melding") = inpVerdi * 1 + " NOK"
+            }
+            if else (wut == "SEK") {
+                document.getElementById("Melding") = inpVerdi * 1.02481737 + " SEK"
+            }
+            if else (wut == "DKK") {
+                document.getElementById("Melding") = inpVerdi * 0.80351157 + " DKK"
+            }
+        }
+    </script>
+</head>
+<body>
+    <p>NOK</p>
+    <input id="inpVerdi" type="number">
+    <p>Til</p>
+    <select id="VALUTA">
+        <option value="NOK">NOK</option>
+        <option value="SEK">SEK</option>
+        <option value="DKK">DKK</option>
+        <option value="USD">USD</option>
+    </select>
+    <p id="Melding"></p>
+    <input id="regnValuta" type="button" value="Regn ut" onclick="regnValuta()" />
+</body>
+</html>

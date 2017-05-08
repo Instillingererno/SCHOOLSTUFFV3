@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <script>
+            function Endre(Side) {
+                document.getElementById("ifrSide").src = Side;
+            }
+        </script>
+    </head>
+    <body onload="kursTilTab()">
+        <input id="btnBeregn" type="button" value="Utføre beregninger" onclick="Endre('Beregn.html')" />
+        <input id="btnEndre" type="button" value="Endre koder m/kurs" onclick="Endre('Endre.html')" />
+        <input id="btnVis" type="button" value="Vise alle koder m/kurs" onclick="Endre('Vis.html')" />
+        
+        <br />
+        
+        <iframe id="ifrSide" src="Beregn.html" style="width: 700px; height: 600px;"></iframe>
+    
+    </body>
+</html>

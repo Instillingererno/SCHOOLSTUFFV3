@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <script>
+            var myGamePiece;
+                
+            function startGame() {
+                myGamePiece = new component(20, 200, 'blue', 200, 200);
+                myGameArea.start();
+            }
+            
+            var myGameArea = {
+                canvas : document.createElement("canvas"),
+                start : function() {
+                    this.canvas.width = 1000;
+                    this.canvas.height = 500;
+                    this.context = this.canvas.getContext("2d");
+                    document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+                    this.frameNo = 0;
+                    this.interval = setInterval(updateGameArea, 20);
+                },
+                stop : function() {
+                    clearInterval(this.interval);
+                },
+                clear : function() {
+                    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                }
+            }
+            
+            function component(radius, mass, color, x, y) {
+                this.radius = radius;
+                this.mass = mass;
+                this.color = color;
+                this.x = x;
+                this.y = y;
+                this.speedX = 0;
+                this.speedY = 0;
+                this.update = function() {
+                    ctx = myGameArea.context;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, 360)
+                    ctx.stroke();
+                    ctx.closePath();
+                }
+            }
+            
+            function updateGameArea() {
+                myGameArea.clear();
+                //myGamePiece.newPos();
+                myGamePiece.update();
+            }
+            
+        </script>
+        <style>
+            canvas {
+                border: 1px solid #d3d3d3;
+                background-color: #f1f1f1;
+            }
+        </style>
+    </head>
+    <body onload="startGame()">
+        
+        
+    </body>
+</html>

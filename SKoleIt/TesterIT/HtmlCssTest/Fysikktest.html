@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Fysikk regneting</title>
+        <meta charset="utf-8" />
+        <script>
+            var sluttFart = document.getElementById("sluttFart").valueAsNumber;
+            var startFart = document.getElementById("startFart").valueAsNumber;
+            var akselerasjon = document.getElementById("akselerasjon").valueAsNumber;
+            var tid = document.getElementById("tid").valueAsNumber;
+            var strekning = document.getElementById("strekning").valueAsNumber;
+            function veiformel()
+            {
+                if (sluttFart == null) //Alle formlene som regner ut 'v'
+                    { //Vil være delt inn i tre if setninger som sjekker de verdiene som må være til stede
+                        if (startFart = !null && akselerasjon = !null && tid = !null) //(v(0),a,t)
+                            {
+                                document.getElementById("SLUTTFART").innerHTML = startFart * akselerasjon * tid
+                            }
+                        else if (strekning = !null && tid = !null && startFart = !null) //(s,t,v(0))
+                            {
+                                document.getElementById("SLUTTFART").innerHTML = strekning / (0.5 * tid) - sluttFart
+                            }
+                        else if (startFart = !null && akselerasjon = !null && strekning = !null) //(v(0),a,s)
+                            {
+                                document.getElementById("SLUTTFART").innerHTML = (startFart^2 + 2 * akselerasjon * strekning)^(1/2)
+                            }
+                    }
+                if (startFart == null) //Alle formlene som regner ut 'v(0)'
+                    {
+                        if (sluttFart = !null && akselerasjon = !null && tid = !null) //(v,a,t)
+                            {
+                                document.getElementById("STARTFART").innerHTML = sluttFart - akselerasjon * tid
+                            }
+                        else if (strekning = !null && tid = !null && sluttFart = !null) //(s,t,v)
+                            {
+                                document.getElementById("STARTFART").innerHTML = strekning / (0.5 * tid) - sluttFart
+                            }
+                        else if (strekning = !null && tid = !null && akselerasjon = !null) //(s,t,a)
+                            {
+                                document.getElementById("STARTFART").innerHTML = strekning / (tid + 0.5 * akselerasjon * tid^2)
+                            }
+                    }
+                if (akselerasjon == null) //Alle formlene som regner ut 'a'
+                    {
+                        if (sluttFart = !null && startFart = !null && tid = !null) //(v,v(0),t)
+                            {
+                                document.getElementById("AKSELERASJON").innerHTML = (sluttFart - startFart) / tid
+                            }
+                        else if (strekning = !null && startFart = !null && tid = !null) //(s,v(0),t)
+                            {
+                                document.getElementById("AKSELERASJON").innerHTML = (strekning - startFart * tid) / (0.5 * tid^2)
+                            }
+                        else if (sluttFart = !null && startFart = !null && strekning = !null) //(v,v(0),s)
+                            {
+                                document.getElementById("AKSELERASJON").innerHTML = (sluttFart^2 - startFart^2) / (2 * strekning)
+                            }
+                    }
+                if (tid == null) //Alle formlene som regner ut 't'
+                    {
+                        
+                    }
+                if (strekning == null) //Alle formlene som regner ut 's'
+                    {
+                        
+                    }
+            }
+        </script>
+    </head>
+    <body>
+        <input id="sluttFart" type="number" onchange="veiformel" />
+        <input id="startFart" type="number" onchange="veiformel" />
+        <input id="akselerasjon" type="number" onchange="veiformel" />
+        <input id="tid" type="number" onchange="veiformel" />
+        <input id="strekning" type="number" onchange="veiformel" />
+        <br />
+        <p id=SLUTTFART></p>
+        <p id=STARTFART></p>
+        <p id=AKSELERASJON></p>
+        <p id=TID></p>
+        <p id=STREKNING></p>
+    </body>
+</html>
+<!-- 
+     Formler - veiformler
+     v = v(0) + a * t       (v,v(0),a,t)
+     s = 1/2 * (v(0) + v) * t       (s,v(0),v,t)
+     s = v(0) * t + 1/2 * a * t^2       (s,v(0),t,a)
+     v^2 = v(0)^2 + 2 * a * s       (v,v(0),a,s)
+     PS: I javascripten husk valueAsNumber
+-->
