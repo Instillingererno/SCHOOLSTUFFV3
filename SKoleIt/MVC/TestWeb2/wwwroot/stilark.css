@@ -1,0 +1,58 @@
+body {
+    	background-color: #FFFFFC;
+}
+#Topp {
+       background-color: orange;
+       width: 740px;
+       line-height: 70px;
+	   height: 70px;
+	text-align: center;
+	vertical-align: middle;
+}
+ 
+#Meny {
+	width: 740px;
+	height: 32px;
+	background-color: #eee8aa;
+}
+#Innhold {
+	width: 740px;
+	min-height: 600px;
+	margin-left: 30px;
+}
+
+#Meny {
+	width: 740px;
+	height: 36px;
+	text-align:center; 
+	background-color: blue;
+	padding:0; margin:0px;
+    z-index: 99;
+}
+#Meny ul {
+	list-style-type: none;
+	width: auto;
+	margin: 0;
+	padding: 0;
+}
+#Meny li {
+	float: left;
+	padding-top: 7px;
+	padding-left:30px;
+}
+#Meny a, a:visited {
+	text-decoration: none;
+	color: #ffffff;
+	display: block;
+	border-right: 1px solid #708090;
+	
+}
+#Meny a:hover {
+	text-decoration: none;
+	color: orange;
+	background: url(images/meny2.gif);
+}
+a, a:visited {
+	text-decoration: none;
+	color: gray;
+}

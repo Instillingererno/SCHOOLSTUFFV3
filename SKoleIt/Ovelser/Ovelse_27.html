@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <title>Øvelse 27</title>
+        <script>
+            "use strict";
+            function storsttall(tall1, tall2) {
+                if (tall1 > tall2) 
+                    return tall1;
+                else
+                    return tall2;
+            }
+            function minsttall(tall1, tall2) {
+                if (tall1 < tall2)
+                    return tall1;
+                else
+                    return tall2;
+            }
+            function erdelelig(tall1,tall2) {
+                if (storsttall(tall1,tall2) % minsttall(tall1,tall2) == 0)
+                    return "største tall er delelig med det minste";
+                else
+                    return "største tall er ikke delelig med det minste";
+            }
+            function btnUtfor_onclick() {
+                var tall1,tall2;
+                var tekst = "";
+                tall1 = document.getElementById("tall1").value;
+                tall2 = document.getElementById("tall2").value;
+                tekst += storsttall(tall1,tall2) + " er det største tallet, ";
+                tekst += erdelelig(tall1,tall2)
+                document.getElementById("pMelding").innerHTML = tekst;
+            }
+        </script>
+    </head>
+    
+    <body>
+        Tall 1:
+        <input id="tall1" type="number">
+        <br />
+        Tall 2:
+        <input id="tall2" type="number">
+        <br />
+        <input id="btnUtfor" type="button" value="Utfør" onclick="btnUtfor_onclick()">
+        <br />
+        <p id="pMelding"></p>
+    </body>
+</html>

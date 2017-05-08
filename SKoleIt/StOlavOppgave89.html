@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            canvas {
+                background-color: aqua;
+                height: 1000px;
+                width: 1000px;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="stuff" height="4000" width="4000"></canvas>
+    
+    </body>
+     <script> 
+         var ctx = document.getElementById("stuff").getContext("2d");
+         var width = ctx.canvas.width;
+         var height = ctx.canvas.height;
+         
+         ctx.fillStyle = "black";
+         ctx.font = "bold 400px verdana";
+         ctx.fillText("WHAT IS DIS", 0, height/2);
+
+            /*var palette = [ // Commodore 64 palette
+                "#000000" , "#FFFFFF" , "#880000" , "#AAFFEE" ,
+                "#CC44CC" , "#00CC55" , "#0000AA" , "#EEEE77" ,
+                "#DD8855" , "#664400" , "#FF7777" , "#333333" ,
+                "#777777" , "#AAFF66" , "#0088FF" , "#BBBBBB" ];
+            
+            setInterval(draw, 50);
+
+            function draw() {
+                var color = palette[ Math.floor( Math.random() * palette.length ) ];
+                var x = Math.floor( Math.random() * width );
+                var y = Math.floor( Math.random() * height );
+                var w = Math.floor( Math.random() * (width / 2) );
+                var h = Math.floor( Math.random() * (height / 2) );
+                ctx.fillStyle = color;
+                ctx.fillRect(w,y,w,h);
+            }*/
+        
+        </script>
+</html>

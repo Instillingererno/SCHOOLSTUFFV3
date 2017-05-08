@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Prøve_1 07.10.2016 Oppgave 3</title>
+        
+        <meta charset="utf-8">        
+        
+        <script>
+            function btnUtfor_onclick() {
+                var Forst = document.getElementById("inpForste").valueAsNumber;
+                var Andre = document.getElementById("inpAndre").valueAsNumber;
+                var Storst = document.getElementById("inpStorst").valueAsNumber;
+                var Okning = Andre;
+                var Tekst = "";
+                for (Forst; Forst <= Storst; Forst = Forst + Okning) { //1
+                    Tekst += Forst + ", "; //2
+                    Okning = Andre - Forst; //3
+                    Andre = Andre + Forst; //4
+                }
+                document.getElementById("pMelding").innerHTML = Tekst;
+            }
+        </script>
+    </head>
+    
+    <body>
+        <table>
+            <tr>
+                <td>Første tall:</td>
+                <td><input id="inpForste" type="number"></td>
+            </tr>
+            <tr>
+                <td>Andre tall:</td>
+                <td><input id="inpAndre" type="number"></td>
+            </tr>
+            <tr>
+                <td>Største tillate tall:</td>
+                <td><input id="inpStorst" type="number"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input id="btnUtfor" type="button" value="Utfør" onclick="btnUtfor_onclick()"></td>
+            </tr>
+        </table>        
+        <br />
+        <p id="pMelding"></p>
+    </body>
+</html>

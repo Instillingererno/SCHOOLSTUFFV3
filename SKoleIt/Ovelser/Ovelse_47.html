@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <script src="/common.js"></script>
+        <script>
+            var huskeliste = [];
+            function btnLagre_onclick() {
+                var Notat = document.getElementById("inpNotat").value;
+                huskeliste.push(Notat);
+                document.getElementById("pMelding").innerHTML = huskeliste;
+                Save('huskeliste',huskeliste);
+            }
+            function pageload() {
+                huskeliste = GetFile("huskeliste");
+                document.getElementById("pMelding").innerHTML = huskeliste;
+            }
+        </script>
+    </head>
+    <body onload="pageload()">
+        <input id="inpNotat" type="text" />
+        <input id="btnLagre" type="button" value="Lagre" onclick="btnLagre_onclick()" />
+        <p id="pMelding"></p>
+    </body>
+</html>

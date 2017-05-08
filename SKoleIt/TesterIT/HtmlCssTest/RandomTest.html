@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <title>Sjangse</title>
+        
+        <meta charset="utf-8">
+        <meta name="description" content="" />
+        <script>
+            var AntallMynt = 0;
+            var AntallKron = 0;
+            function btnUtfor_onclick() {
+                var Antall = document.getElementById("inpAntall").valueAsNumber;
+                var Tekst = "";
+                for (var i = 1;i <= Antall;i++) {
+                    var Utfall = "";
+                    var Tilfeldig = Math.random();
+                    if (Tilfeldig > 0.5) {
+                        Utfall = "Kron";
+                        AntallKron ++;
+                    }
+                    else {
+                        Utfall = "Mynt";
+                        AntallMynt ++;
+                    }
+                    Tekst += "Kast nr " + i + ", resultat = " + Utfall + "<br />";
+                }
+                var KronProsent = (Math.round(( AntallKron / (AntallMynt + AntallKron) ) * 1000000000000)) / 10000000000; //(AntallKron / (AntallMynt + AntallKron)) * 100; 
+                document.getElementById("pMelding").innerHTML = Tekst;
+                document.getElementById("pAntall").innerHTML = AntallMynt + " Mynt, " + AntallKron + " Kron. Sjangsen for kron er: " + KronProsent + "%";
+             }
+        
+        </script>
+    </head>
+    
+    <body>
+        <table>
+            <tr>
+                <td>
+                    skriv inn hvor mange ganger: 
+                    <input id="inpAntall" type='number'>
+                    <input id="btnUtfor" type='button' value="Utfør" onclick="btnUtfor_onclick()">
+                    <p id="pAntall"></p>
+                </td>
+            </tr>
+            <tr>
+                <td><p id="pMelding"></p></td>
+            </tr>
+        </table>
+    </body>
+</html>

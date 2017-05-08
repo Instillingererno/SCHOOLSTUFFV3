@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eksempel_2</title>
+    <meta charset="utf-8" />
+    <script>
+        var x = 0;
+        function btnUtfor_onclick()
+        {
+            x ++;
+            document.getElementById("pMelding").innerHTML = "Gratulerer - du har trykket på knappen " + x + " ganger!";
+        }
+    </script>
+</head>
+<body>
+    <input id="btnUtfor" type="button" value="Trykk meg" onclick="btnUtfor_onclick()" />
+    <p id="pMelding"></p>
+</body>    
+</html>

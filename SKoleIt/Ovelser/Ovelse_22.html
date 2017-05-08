@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<head>
+    <title>Øvelse 22</title>
+    <script>
+        function inpButton1_onclick() {
+            document.getElementById("pMelding").innerHTML = "";
+            var tekst = "";
+            for (var i = 1; i <= 5; i++) {
+                tekst += "5 * " + i + " = " + 5*i + "<br />";
+            }
+            document.getElementById("pMelding").innerHTML = tekst;
+        }
+        
+        function inpButton2_onclick() {
+            document.getElementById("pMelding").innerHTML = "";
+            var tekst = "";
+            var antall = document.getElementById("inpAntall").valueAsNumber
+            for (var i = 1; i <= 10; i++) {
+                tekst += antall + " * " + i + " = " + antall*i + "<br />";
+            }
+            document.getElementById("pMelding").innerHTML = tekst;
+        }
+        
+        function inpButton3_onclick() {
+            document.getElementById("pMelding").innerHTML = "";
+            var tekst = "";
+            for (var i = 1; i <= 10; i++) {
+                for (var j = 1; j <= 10; j++) {
+                    tekst += i + " * " + j + " = " + i*j + "<br />";
+                }
+                tekst += "<br />"
+            }
+                     document.getElementById("pMelding").innerHTML = tekst;
+        }
+                     
+        function inpButton4_onclick() {
+            document.getElementById("pMelding").innerHTML = "";
+            var tekst = "";
+            tekst += "<table>";
+            for (i = 1; i <= 10; i++) {
+                tekst += "<tr>";
+                for (j = 1; j <= 10; j++) {
+                    tekst += "<td>" + i*j + "</td>";
+                }
+                tekst += "</tr>";
+            }
+            tekst += "</table>";
+            document.getElementById("pMelding").innerHTML = tekst;
+        }
+    </script>
+    <style>
+        body {
+            margin-left: 40px;
+        }
+        input {
+            width: 150px;
+            margin: 5px;
+        }
+        p {
+            margin-left: 5px;
+        }
+        tr, td {
+            height: 30px;
+            width: 30px;
+            text-align: center;
+        }
+    </style> 
+</head>
+<body>
+    <table>
+        <tr>
+            <th><input id="inpButton1" type="button" value="Vis 5 gangen" onclick="inpButton1_onclick()"></th>
+            <th><input id="inpButton2" type="button" value="Vis oppgitt gangetabell" onclick="inpButton2_onclick()"></th>
+            <th><input id="inpButton3" type="button" value="Hele gangetabellen" onclick="inpButton3_onclick()"></th>
+            <th><input id="inpButton4" type="button" value="Gangetabellen sortert" onclick="inpButton4_onclick()"></th>
+        </tr>
+        <tr>
+            <th></th>
+            <th><input id="inpAntall" type="number"></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </table>
+    <p id="pMelding"></p>
+</body>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>...</title>
+        <script type="text/javascript">
+        function btnBeregn_onclick() {
+            var Lonn = document.getElementById("inpLonn").valueAsNumber;
+            var Matt = document.getElementById("inpMaterialKostnad").valueAsNumber;
+            document.getElementById("Lonn").innerHTML = Lonn;
+            document.getElementById("Matt").innerHTML = Matt;
+            document.getElementById("UMva").innerHTML = Lonn + Matt;
+            document.getElementById("Mva").innerHTML = (Lonn + Matt) * 0.25;
+            document.getElementById("Totalt").innerHTML = (Lonn + Matt) * 1.25;
+        }
+        function btnNy_onclick() {
+            document.getElementById("inpLonn").innerHTML = "";
+            document.getElementById("inpMaterialKostnad").innerHTML = "";
+            document.getElementById("Lonn").innerHTML = "";
+            document.getElementById("UMva").innerHTML = "";
+            document.getElementById("Mva").innerHTML = "";
+            document.getElementById("Totalt").innerHTML = "";
+            document.getElementById("inpLonn").focus(); 
+        }
+        </script>
+    </head>
+    <body>
+        Lønn:
+        <input id="inpLonn" type="number">
+        <br />
+        Materialkostnad:
+        <input id="inpMaterialKostnad" type="number">
+        <br />
+        <input id="btnBeregn" type="button" value="Beregn" onclick="btnBeregn_onclick()">
+        <input id="btnNy" type="button" value="Ny" onclick="btnNy_onclick()">
+        <br /> <br />
+        <table>
+            <th>
+            ANBUD:
+            </th>
+            <tr>
+                <td>Lønnskostnad</td>
+                <td id="Lonn"></td>
+            </tr>
+            <tr>
+                <td>+ Materialer</td>
+                <td id="Matt" style="border-bottom: black solid; width: 50px;"></td>
+            </tr>
+            <tr>
+                <td>Pris u/mva</td>
+                <td id="UMva"></td>
+            </tr>
+            <tr>
+                <td>+ 25% mva</td>
+                <td id="Mva" style="border-bottom: black solid; width: 50px;"></td>
+            </tr>
+            <tr>
+                <td>Pris m/mva</td>
+                <td id="Totalt" style="border-bottom: black double; width: 50px;"></td>
+            </tr>
+        </table>
+    </body>
+</html>

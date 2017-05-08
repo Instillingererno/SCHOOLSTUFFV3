@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Prøve_1 07.10.2016 Oppgave 2</title>
+        
+        <meta charset="utf-8">        
+        
+        <script>
+            function btnUtfor_onclick() {
+                var Belop = document.getElementById("inpBelop").valueAsNumber;
+                var Rabatt = 0;
+                var Netto = 0;
+                if (Belop >= 5000)
+                    Rabatt = Belop * 0.1;
+                else
+                    Rabatt = Belop * 0.05;
+                Netto = Belop - Rabatt;
+                document.getElementById("pRabatt").innerHTML = Rabatt;
+                document.getElementById("pNetto").innerHTML = Netto;
+            }
+        </script>
+        <style>
+            p {
+                padding: 0;
+                margin: 0;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <table>
+            <tr>
+                <td>Kjøpsbeløp:</td>
+                <td><input id="inpBelop" type="number"></td>
+            </tr>
+            <tr>
+                <td>Pris med rabatt:</td>
+                <td><p id="pRabatt"></p></td>
+            </tr>
+            <tr>
+                <td>Nettobeløp:</td>
+                <td><p id="pNetto"></p></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input id="btnUtfor" type="button" value="Utfør" onclick="btnUtfor_onclick()"></td>
+            </tr>
+        </table>
+    </body>
+</html>

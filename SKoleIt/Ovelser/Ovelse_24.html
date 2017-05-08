@@ -1,0 +1,63 @@
+ff<!DOCTYPE html>
+<html lang="">
+    <head>
+        <title>Øvelse 24</title>
+        
+        <meta charset="utf-8">
+
+        
+        <script>
+            // simuler terningskast
+            // Antall input
+            // Utfør knapp
+            function btnUtfor_onclick() {
+                var Utfall1 = 0,Utfall2 = 0,Utfall3 = 0,Utfall4 = 0,Utfall5 = 0,Utfall6 = 0;
+                var Tekst = "";
+                var Antall = document.getElementById("inpAntall").valueAsNumber;
+                for (var i = 1; i <= Antall; i++) {
+                    var Kast = Math.floor((Math.random() * 6) + 1);
+                    switch (Kast) {
+                        case 1: 
+                            Tekst += "Kast nr. " + i + " ga 1." + "<br />";
+                            Utfall1 ++;
+                            break;
+                        case 2:
+                            Tekst += "Kast nr. " + i + " ga 2." + "<br />";
+                            Utfall2 ++;
+                            break;
+                        case 3:
+                            Tekst += "Kast nr. " + i + " ga 3." + "<br />";
+                            Utfall3 ++;
+                            break;
+                        case 4:
+                            Tekst += "Kast nr. " + i + " ga 4." + "<br />";
+                            Utfall4 ++;
+                            break;
+                        case 5:
+                            Tekst += "Kast nr. " + i + " ga 5." + "<br />";
+                            Utfall5 ++;
+                            break;
+                        case 6:
+                            Tekst += "Kast nr. " + i + " ga 6." + "<br />";
+                            Utfall6 ++;
+                            break;
+                    }
+                }
+                document.getElementById("pSjangse").innerHTML = "Sjangsen for 1 ble: " + (Utfall1 / Antall) * 100 + "%; Sjangsen for 2 ble: " + (Utfall2 / Antall) * 100 + "%; Sjangsen for 3 ble: " + (Utfall3 / Antall) * 100 + "%; Sjangsen for 4 ble: " + (Utfall4 / Antall) * 100 + "%; Sjangsen for 5 ble: " + (Utfall5 / Antall) * 100 + "%; Sjangsen for 6 ble: " + (Utfall6 / Antall) * 100 + "%;"
+                document.getElementById("pUtfall").innerHTML = "Terningskast 1 ble kastet: " + Utfall1 + " ganger. <br />" + "Terningskast 2 ble kastet: " + Utfall2 + " ganger. <br />" + "Terningskast 3 ble kastet: " + Utfall3 + " ganger. <br />" + "Terningskast 4 ble kastet: " + Utfall4 + " ganger. <br />" + "Terningskast 5 ble kastet: " + Utfall5 + " ganger. <br />" + "Terningskast 6 ble kastet: " + Utfall6 + " ganger. <br />"
+                document.getElementById("pMelding").innerHTML = Tekst;
+            }
+            
+        
+        </script>
+    </head>
+    
+    <body>
+        <input id="inpAntall" type="number">
+        <input id="btnUtfor" type="button" value="Utfør" onclick="btnUtfor_onclick()">
+        <br />
+        <p id="pSjangse"></p>
+        <p id="pUtfall"></p>
+        <p id="pMelding"></p>
+    </body>
+</html>

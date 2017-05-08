@@ -1,0 +1,92 @@
+<html>
+
+<head>
+    <script>
+        var framerate = 60;
+
+        var stuff = [];
+
+        var started = false;
+        var round = false;
+
+        var updateRepeater;
+
+        var c;
+        var ctx;
+
+        var width;
+        var height;
+
+        class Rectangle {
+            constructor(xPos, Width, Height, Color) {
+                this.xPos = xPos;
+                this.Width = Width;
+                this.Height = Height;
+                this.Speed = 0;
+            }
+            playerUpdate() {
+
+            }
+            aiUpdate() {
+
+            }
+            ballUpdate() {
+
+            }
+            ballHit() {
+
+            }
+            clear() {
+
+            }
+        }
+
+        function pageload() {
+            document.getElementById("canvas").height = window.innerHeight;
+            document.getElementById("canvasback").height = window.innerHeight;
+            height = window.innerHeight;
+            document.getElementById("canvas").width = window.innerWidth;
+            document.getElementById("canvasback").width = window.innerWidth;
+            width = window.innerWidth;
+            console.log(height + ", " + width);
+
+            c = document.getElementById("canvas");
+            ctx = canvas.getContext("2d");
+
+            document.getElementById("canvasback").getContext("2d").fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+            stuff.push(new Rectangle(10, 10, 100, "#f1f1f1")); //Player
+            stuff.push(new Rectangle(width - 20, 10, 100, "#w3w3w3")); //Ai
+            stuff.push(new Rectangle(width / 2, 5, 5, "#g4g4g4")); //Ball
+        }
+
+        function update() {
+
+        }
+
+        function startGame() {
+            if (!started) {
+                console.log("Start");
+                updateRepeater = setInterval(update, 1000 / framerate);
+                started = true;
+            }
+
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body onload="pageload()">
+    <div id="canvasDiv">
+        <canvas id="canvas" onmousedown="startGame()" style="position: absolute;"></canvas>
+        <canvas id="canvasback" style="z-index: 0; position: absolute;"></canvas>
+    </div>
+</body>
+
+</html>

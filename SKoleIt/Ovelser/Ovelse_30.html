@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <title>Øvelse 30</title>
+        <script>
+            var Nr = document.getElementById("inpNr").value;
+            
+            function Test1() {
+                var Resultat1 = false;
+                var Sum = 0;
+                var gange = "376189452";
+                for (var i = 0; i <= 8; i++) {
+                    Sum += parseInt(Nr.substr(i,1)) * parseInt(gange.substr(i,1));
+                }
+                if(Sum % 11 == 0 || 11 - Sum % 11 == Nr.substr(9,1))
+                    Resultat1 = true;
+                else 
+                    Resultat1 = false;
+                return Resultat1;
+            }
+            function Test2() {
+                var Resultat2 = false;
+                var Sum = 0;
+                var gange = "5432765432";
+                for(var i = 0; i <= 9; i++) {
+                    Sum += parseInt(Nr.substr(i,1)) * parseInt(gange.substr(i,1));
+                }
+                if(Sum % 11 == 0 || 11 - Sum % 11 == Nr.substr(10,1))
+                    Resultat2 = true;
+                else
+                    Resultat2 = false;
+                return Resultat2;
+            }
+            function Kjonn() {
+                if(Nr.substr(9,1) % 2 == 0)
+            }
+            function btnUtfor_onclick() {
+                var Resultat1 = Test1();
+                var Resultat2 = Test2();
+                var Melding = "";
+                if (Resultat1 == true && Resultat2 == true)
+                    if ()
+                    Melding = 
+                    
+            }
+        </script>
+    </head>
+    
+    <body>
+        <input id="inpNr" type="number">
+        <input id="btnUtfor" type="button" value="Utfør" onclick="btnUtfor_onclick()">
+        <br />
+        <p id="pMelding"></p>
+    </body>
+</html>
