@@ -1,0 +1,5 @@
+Trekant;Bilder/Trekant.gif
+Kvadrat;Bilder/Kvadrat.gif
+Rombe;Bilder/Rombe.gif
+Sirkel;Bilder/Sirkel.gif
+Trapes;Bilder/Trapes.gif

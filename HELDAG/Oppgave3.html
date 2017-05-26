@@ -1,0 +1,230 @@
+<html>
+
+<head>
+    <style>
+        #Quiz {
+            height: 0px;
+            overflow: hidden;
+        }
+        
+        img {
+            height: 100px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="Reg">
+        Navn: <input id="inpNavn" type="text" oninput="Indeks.velkommen()" />
+        <br />
+        <br />
+        <span id="sHilsen"></span>
+        <br />
+        <br />
+        <br />
+        <input id="btnStart" type="button" value="Start Quiz" style="height: 0;" onclick="Indeks.btnStart.klikk()" />
+    </div>
+    <div id="Quiz">
+        <h2>Quiz:</h2>
+        <table>
+            <tr>
+                <!-- Figur -->
+                <td></td>
+                <td></td>
+                <td> <img id="toppMidt" src="" /> </td>
+                <!-- Her plasseres selve figuren -->
+                <td></td>
+                <td>
+                    <p id="pMelding"></p>
+                </td>
+            </tr>
+            <tr>
+                <!-- Valg -->
+                <td><img id="bunnVenstre" src="" onclick="Quiz.Sjekk(this.src)" /></td>
+                <td><img id="bunnVMidt" src="" onclick="Quiz.Sjekk(this.src)" /></td>
+                <td><img id="bunnMidt" src="" onclick="Quiz.Sjekk(this.src)" /></td>
+                <td><img id="bunnHMidt" src="" onclick="Quiz.Sjekk(this.src)" /></td>
+                <td><img id="bunnHoyre" src="" onclick="Quiz.Sjekk(this.src)" /></td>
+            </tr>
+        </table>
+        <p id="pResultat"></p>
+        <iframe id="iframe" src="" style="visibility: hidden;"></iframe>
+    </div>
+</body>
+<script>
+    //Kommentarer
+    //For å utvide oppgaven til å vise flere figurer må man først legge til flere 
+    //figurer i tekstfilen, for så å endre antall svaralternativ, den er bestemt 
+    //av Quiz.SvarAlt som har en standard verdi på 5.. Så må siden utvides med 
+    //større table i Html DOM'en, det kunne ha blitt gjort automatisk av javascript
+    //men du må måtte endre antall svaralternativer ganske mye før det sparer tid.
+
+
+    //Klasse deklarasjoner
+    class Figur {
+        constructor(Navn, Url) {
+            this.Navn = Navn;
+            this.Url = Url;
+            this.Forsok = 0;
+        }
+        reset() {
+            this.Forsok = 0;
+        }
+    }
+
+    class Spors {
+        constructor(rett, alt1, alt2, alt3, alt4, vekt) {
+            this.rett = rett;
+            this.alt1 = alt1;
+            this.alt2 = alt2;
+            this.alt3 = alt3;
+            this.alt4 = alt4;
+        }
+
+    }
+
+
+    //Objekter og tilhørende funksjoner
+    var Indeks = {
+        "Reg": document.getElementById("Reg"),
+        "inpNavn": document.getElementById("inpNavn"),
+        "sHilsen": document.getElementById("sHilsen"),
+        "btnStart": document.getElementById("btnStart"),
+
+        "Quiz": document.getElementById("Quiz"),
+        "Tabell": {
+            "toppMidt": document.getElementById("toppMidt"),
+            "pMelding": document.getElementById("pMelding"),
+            "bunnVenstre": document.getElementById("bunnVenstre"),
+            "bunnVMidt": document.getElementById("bunnVMidt"),
+            "bunnMidt": document.getElementById("bunnMidt"),
+            "bunnHMidt": document.getElementById("bunnHMidt"),
+            "bunnHoyre": document.getElementById("bunnHoyre")
+        },
+        "iframe": document.getElementById("iframe"),
+        "pResultat": document.getElementById("pResultat")
+    }
+    Indeks.velkommen = function() {
+        this.sHilsen.innerHTML = "Klar til å starte, " + this.inpNavn.value + "?";
+        if (this.inpNavn.value != "")
+            this.btnStart.style.height = 50;
+        else {
+            this.sHilsen.innerHTML = "";
+            this.btnStart.style.height = 0;
+        }
+    }
+    Indeks.btnStart.klikk = function() {
+        Indeks.Quiz.style.height = 500;
+        Indeks.btnStart.value = "Start Ny Quiz";
+        Quiz.LagSpors();
+        Quiz.Utskrift();
+    }
+
+
+    var Quiz = {
+        "Figurer": [],
+        "Spors": [],
+        "Naa": 0,
+        "Forsok": [],
+        "SvarAlt": 5
+    }
+    Quiz.Figurer.reset = function() {
+        for (let i = 0; i < this.length; i++) {
+            this[i].reset();
+        }
+    }
+    Quiz.LagSpors = function() {
+        Quiz.Spors = [];
+        var valgt = [];
+        var altvalgt = [];
+        while (this.Spors.length < this.Figurer.length) {
+            var tilfeldig = Math.floor(Math.random() * this.Figurer.length);
+            if (valgt.includes(tilfeldig) == false) {
+                this.Forsok.push(0);
+                altvalgt = [tilfeldig];
+                valgt.push(tilfeldig);
+                while (altvalgt.length < this.SvarAlt) {
+                    var alttilfeldig = Math.floor(Math.random() * this.Figurer.length);
+                    if (altvalgt.includes(alttilfeldig) == false) {
+                        altvalgt.push(alttilfeldig);
+                    }
+                }
+                this.Spors.push(new Spors(this.Figurer[altvalgt[0]], this.Figurer[altvalgt[1]], this.Figurer[altvalgt[2]], this.Figurer[altvalgt[3]], this.Figurer[altvalgt[4]]));
+            }
+        }
+        this.Utskrift();
+    }
+    Quiz.Utskrift = function() {
+        Indeks.Tabell.toppMidt.src = this.Spors[this.Naa].rett.Url;
+        Indeks.Tabell.toppMidt.style.transform = "rotate(" + (Math.floor(Math.random()*5) * 90) + "deg)";
+        //Legg til alternativer
+        var valgt = [];
+        var leggtil = []; //Veldig dårlig navn, men funksjonen til denne er å kunne legge til navnene fra klassen Spors, så denne vil se ut noe som [alt1,alt3,rett, osv]
+        while (valgt.length < this.SvarAlt) {
+            var tilfeldig = Math.floor(Math.random() * this.SvarAlt)
+            if (valgt.includes(tilfeldig) == false) {
+                valgt.push(tilfeldig);
+                if (tilfeldig == 0)
+                    leggtil.push("rett");
+                else
+                    leggtil.push("alt" + tilfeldig);
+            }
+        }
+        Indeks.Tabell.bunnVenstre.src = this.Spors[this.Naa][leggtil[0]].Url;
+        Indeks.Tabell.bunnVMidt.src = this.Spors[this.Naa][leggtil[1]].Url;
+        Indeks.Tabell.bunnMidt.src = this.Spors[this.Naa][leggtil[2]].Url;
+        Indeks.Tabell.bunnHMidt.src = this.Spors[this.Naa][leggtil[3]].Url;
+        Indeks.Tabell.bunnHoyre.src = this.Spors[this.Naa][leggtil[4]].Url;
+        this.Forsok.Antall();
+    }
+    Quiz.Sjekk = function(ting) {
+        console.log(ting)
+        this.Forsok[this.Naa] += 1;
+        var felt = ting.split("/");
+        var rettfelt = this.Spors[this.Naa].rett.Url.split("/");
+        if (felt[felt.length - 1] == rettfelt[rettfelt.length - 1]) {
+            this.Naa += 1;
+            Indeks.iframe.src = "Lydrett.html";
+            try {
+                this.Utskrift();
+            } catch (e) {
+                Quiz.Resultat();
+            }
+
+        } else {
+            Indeks.iframe.src = "Lydfeil.html";
+            Quiz.Forsok.Antall();
+        }
+    }
+    Quiz.Forsok.Antall = function() {
+        Indeks.Tabell.pMelding.innerHTML = "Antall forsøk: " + Quiz.Forsok[Quiz.Naa];
+    }
+    Quiz.Resultat = function() {
+        let tekst = "";
+        for (let i = 0; i < this.SvarAlt; i++) {
+            tekst += "Du brukte: " + this.Forsok[i] + " forsøk for å bestemme: " + Quiz.Spors[i].rett.Navn + "<br />";
+        }
+        Indeks.pResultat.innerHTML = tekst;
+    }
+
+
+    //Window.onload
+    window.onload = function() {
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                let linje = xhttp.responseText.split("\n");
+                for (let i = 0; i < linje.length; i++) {
+                    let felt = linje[i].split(";");
+                    Quiz.Figurer.push(new Figur(felt[0], felt[1]));
+                }
+            }
+        };
+        xhttp.open("GET", "Figurer.txt", false);
+        xhttp.send();
+    }
+
+</script>
+
+</html>
