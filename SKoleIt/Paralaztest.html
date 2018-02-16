@@ -1,15 +1,15 @@
 <html>
     <head>
         <script>
-            
+
             //http://joco.name/wp-content/uploads/2014/03/rgb_2048_1.png
-            
+
             //Settings, these can be changed
             var framerate = 250; //Default = 30; Max-250 ;Frames per second, how many times screen updating happens per second
             var timeCalculationTimer = 1000; //Default = 1000; How often timer is updated, makes no difference under 1000, delays updating over 1000!
-            var AccMultiplier = 250;
+            var AccMultiplier = 600;
             var friction = 0.999;
-            var gravity = 5;
+            var gravity = 0;
             var querystring = "";
             //Global variables; By function
                 //Update
@@ -37,9 +37,9 @@
             var accX = 0; //Negativ values mean more speed left
             var accY = 0; //Negativ values mean more speed downwards
             //See acceleration in settings
-            
+
             onmousemove = function(e){xpos = e.clientX; ypos = e.clientY}
-            
+
             function pageload() {
                 timingInterval = setInterval(timer, timeCalculationTimer); //Calls timer function to start "stopclock"
                 updateInterval = setInterval(update, Math.round(1000 / framerate)); //Starts the update function based on framerate set in settings
@@ -50,9 +50,9 @@
                 //Timer
                 timeAtPresent = Date.now(); //Updates timeAtPresent variable to current time
                 timeSpent = Math.round((timeAtPresent - timeAtStart) / 1000); //Calculates the spent time in seconds
-                
+
                 //FPS
-                FPS = (Math.floor((frameCount / timeSpent)*10)/10).toFixed(1);       
+                FPS = (Math.floor((frameCount / timeSpent)*10)/10).toFixed(1);
             }
             function calculate() {
                 //Accelleration and vektor calculation
@@ -64,7 +64,7 @@
                 speedX = speedX + accX/framerate;
                 //Acceleration change
                 accX = (xpos-posX)^2 * (AccMultiplier/framerate); //(xpos - 1.1^posX) * (AccMultiplier/framerate)
-                accY = (ypos-posY) * (AccMultiplier/framerate); //(ypos - 1.1^posY) * (AccMultiplier/framerate)
+                accY = (ypos-posY)^2 * (AccMultiplier/framerate); //(ypos - 1.1^posY) * (AccMultiplier/framerate)
                 //Friction change
                 speedX = speedX * friction;
                 speedY = speedY * friction;
@@ -75,12 +75,12 @@
                 document.getElementById("spanTime").innerHTML = timeSpent;
                 document.getElementById("spanFrameCount").innerHTML = frameCount;
                 document.getElementById("spanFPS").innerHTML = FPS;
-                
-                
+
+
                 document.getElementById("test").style.left = (posX - posFix) + "px";
                 document.getElementById("test").style.top = (posY - posFix) + "px";
-                
-                
+
+
                 if (xpos < posX && ypos < posY) {
                     document.getElementById("test2").style.left = xpos + "px";
                     document.getElementById("test2").style.top = ypos + "px";
@@ -105,7 +105,7 @@
                     document.getElementById("test2").style.height = (ypos - posY) + "px";
                     document.getElementById("test2").style.width = (xpos - posX) + "px";
                 }
-        
+
                 document.getElementById("1").innerHTML = posY;
                 document.getElementById("2").innerHTML = posX;
                 document.getElementById("3").innerHTML = speedY;
@@ -163,7 +163,7 @@
                         }
                         break;
                     case "create":
-                        
+
                         break;
                 }
         }
